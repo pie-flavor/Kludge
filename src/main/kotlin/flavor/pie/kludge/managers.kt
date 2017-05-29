@@ -14,6 +14,7 @@ import org.spongepowered.api.data.property.PropertyRegistry
 import org.spongepowered.api.event.EventManager
 import org.spongepowered.api.network.ChannelRegistrar
 import org.spongepowered.api.plugin.PluginManager
+import org.spongepowered.api.profile.GameProfileManager
 import org.spongepowered.api.scheduler.Scheduler
 import org.spongepowered.api.service.ServiceManager
 import org.spongepowered.api.world.TeleportHelper
@@ -34,3 +35,4 @@ inline val Scheduler: Scheduler get() = Sponge.getScheduler()
 inline val Server: Server get() = Sponge.getServer()
 inline val ServiceManager: ServiceManager get() = Sponge.getServiceManager()
 inline val TeleportHelper: TeleportHelper get() = Sponge.getTeleportHelper()
+inline val GameProfileManager: GameProfileManager get() = Sponge.getServer().gameProfileManager
