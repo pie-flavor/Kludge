@@ -8,6 +8,7 @@ import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.TextRepresentable
 import org.spongepowered.api.text.TranslatableText
 import org.spongepowered.api.text.format.TextColor
+import org.spongepowered.api.text.format.TextColors
 import org.spongepowered.api.text.format.TextFormat
 import org.spongepowered.api.text.format.TextStyle
 import org.spongepowered.api.text.format.TextStyles
@@ -37,6 +38,24 @@ fun String.strikethrough(): LiteralText = Text.builder(this).style(TextStyles.ST
 
 fun String.obfuscated(): LiteralText = Text.builder(this).style(TextStyles.OBFUSCATED).build()
 
+fun String.aqua(): LiteralText = this.color(TextColors.AQUA)
+fun String.black(): LiteralText = this.color(TextColors.BLACK)
+fun String.blue(): LiteralText = this.color(TextColors.BLUE)
+fun String.darkAqua(): LiteralText = this.color(TextColors.DARK_AQUA)
+fun String.darkBlue(): LiteralText = this.color(TextColors.DARK_BLUE)
+fun String.darkGray(): LiteralText = this.color(TextColors.DARK_GRAY)
+fun String.darkGreen(): LiteralText = this.color(TextColors.DARK_GREEN)
+fun String.darkPurple(): LiteralText = this.color(TextColors.DARK_PURPLE)
+fun String.darkRed(): LiteralText = this.color(TextColors.DARK_RED)
+fun String.gold(): LiteralText = this.color(TextColors.GOLD)
+fun String.gray(): LiteralText = this.color(TextColors.GRAY)
+fun String.green(): LiteralText = this.color(TextColors.GREEN)
+fun String.lightPurple(): LiteralText = this.color(TextColors.LIGHT_PURPLE)
+fun String.red(): LiteralText = this.color(TextColors.RED)
+fun String.resetColor(): LiteralText = this.color(TextColors.RESET)
+fun String.white(): LiteralText = this.color(TextColors.WHITE)
+fun String.yellow(): LiteralText = this.color(TextColors.YELLOW)
+
 operator fun Translatable.not(): TranslatableText = Text.of(this)
 
 fun Translatable.color(color: TextColor): TranslatableText = Text.builder(this).color(color).build()
@@ -54,6 +73,24 @@ fun Translatable.underline(): TranslatableText = Text.builder(this).style(TextSt
 fun Translatable.strikethrough(): TranslatableText = Text.builder(this).style(TextStyles.STRIKETHROUGH).build()
 
 fun Translatable.obfuscated(): TranslatableText = Text.builder(this).style(TextStyles.OBFUSCATED).build()
+
+fun Translatable.aqua(): TranslatableText = this.color(TextColors.AQUA)
+fun Translatable.black(): TranslatableText = this.color(TextColors.BLACK)
+fun Translatable.blue(): TranslatableText = this.color(TextColors.BLUE)
+fun Translatable.darkAqua(): TranslatableText = this.color(TextColors.DARK_AQUA)
+fun Translatable.darkBlue(): TranslatableText = this.color(TextColors.DARK_BLUE)
+fun Translatable.darkGray(): TranslatableText = this.color(TextColors.DARK_GRAY)
+fun Translatable.darkGreen(): TranslatableText = this.color(TextColors.DARK_GREEN)
+fun Translatable.darkPurple(): TranslatableText = this.color(TextColors.DARK_PURPLE)
+fun Translatable.darkRed(): TranslatableText = this.color(TextColors.DARK_RED)
+fun Translatable.gold(): TranslatableText = this.color(TextColors.GOLD)
+fun Translatable.gray(): TranslatableText = this.color(TextColors.GRAY)
+fun Translatable.green(): TranslatableText = this.color(TextColors.GREEN)
+fun Translatable.lightPurple(): TranslatableText = this.color(TextColors.LIGHT_PURPLE)
+fun Translatable.red(): TranslatableText = this.color(TextColors.RED)
+fun Translatable.resetColor(): TranslatableText = this.color(TextColors.RESET)
+fun Translatable.white(): TranslatableText = this.color(TextColors.WHITE)
+fun Translatable.yellow(): TranslatableText = this.color(TextColors.YELLOW)
 
 operator fun Translation.not(): TranslatableText = Text.of(this)
 
@@ -73,6 +110,24 @@ fun Translation.strikethrough(): TranslatableText = Text.builder(this).style(Tex
 
 fun Translation.obfuscated(): TranslatableText = Text.builder(this).style(TextStyles.OBFUSCATED).build()
 
+fun Translation.aqua(): TranslatableText = this.color(TextColors.AQUA)
+fun Translation.black(): TranslatableText = this.color(TextColors.BLACK)
+fun Translation.blue(): TranslatableText = this.color(TextColors.BLUE)
+fun Translation.darkAqua(): TranslatableText = this.color(TextColors.DARK_AQUA)
+fun Translation.darkBlue(): TranslatableText = this.color(TextColors.DARK_BLUE)
+fun Translation.darkGray(): TranslatableText = this.color(TextColors.DARK_GRAY)
+fun Translation.darkGreen(): TranslatableText = this.color(TextColors.DARK_GREEN)
+fun Translation.darkPurple(): TranslatableText = this.color(TextColors.DARK_PURPLE)
+fun Translation.darkRed(): TranslatableText = this.color(TextColors.DARK_RED)
+fun Translation.gold(): TranslatableText = this.color(TextColors.GOLD)
+fun Translation.gray(): TranslatableText = this.color(TextColors.GRAY)
+fun Translation.green(): TranslatableText = this.color(TextColors.GREEN)
+fun Translation.lightPurple(): TranslatableText = this.color(TextColors.LIGHT_PURPLE)
+fun Translation.red(): TranslatableText = this.color(TextColors.RED)
+fun Translation.resetColor(): TranslatableText = this.color(TextColors.RESET)
+fun Translation.white(): TranslatableText = this.color(TextColors.WHITE)
+fun Translation.yellow(): TranslatableText = this.color(TextColors.YELLOW)
+
 operator fun Score.not(): ScoreText = Text.of(this)
 
 fun Score.color(color: TextColor): ScoreText = Text.builder(this).color(color).build()
@@ -90,6 +145,24 @@ fun Score.underline(): ScoreText = Text.builder(this).style(TextStyles.UNDERLINE
 fun Score.strikethrough(): ScoreText = Text.builder(this).style(TextStyles.STRIKETHROUGH).build()
 
 fun Score.obfuscated(): ScoreText = Text.builder(this).style(TextStyles.OBFUSCATED).build()
+
+fun Score.aqua(): ScoreText = this.color(TextColors.AQUA)
+fun Score.black(): ScoreText = this.color(TextColors.BLACK)
+fun Score.blue(): ScoreText = this.color(TextColors.BLUE)
+fun Score.darkAqua(): ScoreText = this.color(TextColors.DARK_AQUA)
+fun Score.darkBlue(): ScoreText = this.color(TextColors.DARK_BLUE)
+fun Score.darkGray(): ScoreText = this.color(TextColors.DARK_GRAY)
+fun Score.darkGreen(): ScoreText = this.color(TextColors.DARK_GREEN)
+fun Score.darkPurple(): ScoreText = this.color(TextColors.DARK_PURPLE)
+fun Score.darkRed(): ScoreText = this.color(TextColors.DARK_RED)
+fun Score.gold(): ScoreText = this.color(TextColors.GOLD)
+fun Score.gray(): ScoreText = this.color(TextColors.GRAY)
+fun Score.green(): ScoreText = this.color(TextColors.GREEN)
+fun Score.lightPurple(): ScoreText = this.color(TextColors.LIGHT_PURPLE)
+fun Score.red(): ScoreText = this.color(TextColors.RED)
+fun Score.resetColor(): ScoreText = this.color(TextColors.RESET)
+fun Score.white(): ScoreText = this.color(TextColors.WHITE)
+fun Score.yellow(): ScoreText = this.color(TextColors.YELLOW)
 
 operator fun Selector.not(): SelectorText = Text.of(this)
 
@@ -109,11 +182,41 @@ fun Selector.strikethrough(): SelectorText = Text.builder(this).style(TextStyles
 
 fun Selector.obfuscated(): SelectorText = Text.builder(this).style(TextStyles.OBFUSCATED).build()
 
+fun Selector.aqua(): SelectorText = this.color(TextColors.AQUA)
+fun Selector.black(): SelectorText = this.color(TextColors.BLACK)
+fun Selector.blue(): SelectorText = this.color(TextColors.BLUE)
+fun Selector.darkAqua(): SelectorText = this.color(TextColors.DARK_AQUA)
+fun Selector.darkBlue(): SelectorText = this.color(TextColors.DARK_BLUE)
+fun Selector.darkGray(): SelectorText = this.color(TextColors.DARK_GRAY)
+fun Selector.darkGreen(): SelectorText = this.color(TextColors.DARK_GREEN)
+fun Selector.darkPurple(): SelectorText = this.color(TextColors.DARK_PURPLE)
+fun Selector.darkRed(): SelectorText = this.color(TextColors.DARK_RED)
+fun Selector.gold(): SelectorText = this.color(TextColors.GOLD)
+fun Selector.gray(): SelectorText = this.color(TextColors.GRAY)
+fun Selector.green(): SelectorText = this.color(TextColors.GREEN)
+fun Selector.lightPurple(): SelectorText = this.color(TextColors.LIGHT_PURPLE)
+fun Selector.red(): SelectorText = this.color(TextColors.RED)
+fun Selector.resetColor(): SelectorText = this.color(TextColors.RESET)
+fun Selector.white(): SelectorText = this.color(TextColors.WHITE)
+fun Selector.yellow(): SelectorText = this.color(TextColors.YELLOW)
+
 operator fun Translation.invoke(vararg args: Any): TranslatableText = Text.of(this, *args)
 
 operator fun Translatable.invoke(vararg args: Any): TranslatableText = Text.of(this, *args)
 
 operator fun Text.plus(that: Text): Text = this.concat(that)
+
+operator fun Text.plus(that: String): Text = this.concat(!that)
+
+operator fun Text.plus(that: Selector): Text = this.concat(!that)
+
+operator fun Text.plus(that: Translatable): Text = this.concat(!that)
+
+operator fun Text.plus(that: Translation): Text = this.concat(!that)
+
+operator fun Text.plus(that: Score): Text = this.concat(!that)
+
+operator fun Text.plus(that: TextRepresentable): Text = this.concat(!that)
 
 operator fun Text.Builder.plus(that: Text): Text.Builder = this.append(that)
 
@@ -157,6 +260,24 @@ fun Text.strikethrough(): Text = this.toBuilder().style(TextStyles.STRIKETHROUGH
 
 fun Text.obfuscated(): Text = this.toBuilder().style(TextStyles.OBFUSCATED).build()
 
+fun Text.aqua(): Text = this.color(TextColors.AQUA)
+fun Text.black(): Text = this.color(TextColors.BLACK)
+fun Text.blue(): Text = this.color(TextColors.BLUE)
+fun Text.darkAqua(): Text = this.color(TextColors.DARK_AQUA)
+fun Text.darkBlue(): Text = this.color(TextColors.DARK_BLUE)
+fun Text.darkGray(): Text = this.color(TextColors.DARK_GRAY)
+fun Text.darkGreen(): Text = this.color(TextColors.DARK_GREEN)
+fun Text.darkPurple(): Text = this.color(TextColors.DARK_PURPLE)
+fun Text.darkRed(): Text = this.color(TextColors.DARK_RED)
+fun Text.gold(): Text = this.color(TextColors.GOLD)
+fun Text.gray(): Text = this.color(TextColors.GRAY)
+fun Text.green(): Text = this.color(TextColors.GREEN)
+fun Text.lightPurple(): Text = this.color(TextColors.LIGHT_PURPLE)
+fun Text.red(): Text = this.color(TextColors.RED)
+fun Text.resetColor(): Text = this.color(TextColors.RESET)
+fun Text.white(): Text = this.color(TextColors.WHITE)
+fun Text.yellow(): Text = this.color(TextColors.YELLOW)
+
 fun LiteralText.color(color: TextColor): LiteralText = this.toBuilder().color(color).build()
 
 fun LiteralText.format(format: TextFormat): LiteralText = this.toBuilder().format(format).build()
@@ -172,6 +293,24 @@ fun LiteralText.underline(): LiteralText = this.toBuilder().style(TextStyles.UND
 fun LiteralText.strikethrough(): LiteralText = this.toBuilder().style(TextStyles.STRIKETHROUGH).build()
 
 fun LiteralText.obfuscated(): LiteralText = this.toBuilder().style(TextStyles.OBFUSCATED).build()
+
+fun LiteralText.aqua(): LiteralText = this.color(TextColors.AQUA)
+fun LiteralText.black(): LiteralText = this.color(TextColors.BLACK)
+fun LiteralText.blue(): LiteralText = this.color(TextColors.BLUE)
+fun LiteralText.darkAqua(): LiteralText = this.color(TextColors.DARK_AQUA)
+fun LiteralText.darkBlue(): LiteralText = this.color(TextColors.DARK_BLUE)
+fun LiteralText.darkGray(): LiteralText = this.color(TextColors.DARK_GRAY)
+fun LiteralText.darkGreen(): LiteralText = this.color(TextColors.DARK_GREEN)
+fun LiteralText.darkPurple(): LiteralText = this.color(TextColors.DARK_PURPLE)
+fun LiteralText.darkRed(): LiteralText = this.color(TextColors.DARK_RED)
+fun LiteralText.gold(): LiteralText = this.color(TextColors.GOLD)
+fun LiteralText.gray(): LiteralText = this.color(TextColors.GRAY)
+fun LiteralText.green(): LiteralText = this.color(TextColors.GREEN)
+fun LiteralText.lightPurple(): LiteralText = this.color(TextColors.LIGHT_PURPLE)
+fun LiteralText.red(): LiteralText = this.color(TextColors.RED)
+fun LiteralText.resetColor(): LiteralText = this.color(TextColors.RESET)
+fun LiteralText.white(): LiteralText = this.color(TextColors.WHITE)
+fun LiteralText.yellow(): LiteralText = this.color(TextColors.YELLOW)
 
 fun TranslatableText.color(color: TextColor): TranslatableText = this.toBuilder().color(color).build()
 
@@ -189,6 +328,24 @@ fun TranslatableText.strikethrough(): TranslatableText = this.toBuilder().style(
 
 fun TranslatableText.obfuscated(): TranslatableText = this.toBuilder().style(TextStyles.OBFUSCATED).build()
 
+fun TranslatableText.aqua(): TranslatableText = this.color(TextColors.AQUA)
+fun TranslatableText.black(): TranslatableText = this.color(TextColors.BLACK)
+fun TranslatableText.blue(): TranslatableText = this.color(TextColors.BLUE)
+fun TranslatableText.darkAqua(): TranslatableText = this.color(TextColors.DARK_AQUA)
+fun TranslatableText.darkBlue(): TranslatableText = this.color(TextColors.DARK_BLUE)
+fun TranslatableText.darkGray(): TranslatableText = this.color(TextColors.DARK_GRAY)
+fun TranslatableText.darkGreen(): TranslatableText = this.color(TextColors.DARK_GREEN)
+fun TranslatableText.darkPurple(): TranslatableText = this.color(TextColors.DARK_PURPLE)
+fun TranslatableText.darkRed(): TranslatableText = this.color(TextColors.DARK_RED)
+fun TranslatableText.gold(): TranslatableText = this.color(TextColors.GOLD)
+fun TranslatableText.gray(): TranslatableText = this.color(TextColors.GRAY)
+fun TranslatableText.green(): TranslatableText = this.color(TextColors.GREEN)
+fun TranslatableText.lightPurple(): TranslatableText = this.color(TextColors.LIGHT_PURPLE)
+fun TranslatableText.red(): TranslatableText = this.color(TextColors.RED)
+fun TranslatableText.resetColor(): TranslatableText = this.color(TextColors.RESET)
+fun TranslatableText.white(): TranslatableText = this.color(TextColors.WHITE)
+fun TranslatableText.yellow(): TranslatableText = this.color(TextColors.YELLOW)
+
 fun SelectorText.color(color: TextColor): SelectorText = this.toBuilder().color(color).build()
 
 fun SelectorText.format(format: TextFormat): SelectorText = this.toBuilder().format(format).build()
@@ -205,6 +362,24 @@ fun SelectorText.strikethrough(): SelectorText = this.toBuilder().style(TextStyl
 
 fun SelectorText.obfuscated(): SelectorText = this.toBuilder().style(TextStyles.OBFUSCATED).build()
 
+fun SelectorText.aqua(): SelectorText = this.color(TextColors.AQUA)
+fun SelectorText.black(): SelectorText = this.color(TextColors.BLACK)
+fun SelectorText.blue(): SelectorText = this.color(TextColors.BLUE)
+fun SelectorText.darkAqua(): SelectorText = this.color(TextColors.DARK_AQUA)
+fun SelectorText.darkBlue(): SelectorText = this.color(TextColors.DARK_BLUE)
+fun SelectorText.darkGray(): SelectorText = this.color(TextColors.DARK_GRAY)
+fun SelectorText.darkGreen(): SelectorText = this.color(TextColors.DARK_GREEN)
+fun SelectorText.darkPurple(): SelectorText = this.color(TextColors.DARK_PURPLE)
+fun SelectorText.darkRed(): SelectorText = this.color(TextColors.DARK_RED)
+fun SelectorText.gold(): SelectorText = this.color(TextColors.GOLD)
+fun SelectorText.gray(): SelectorText = this.color(TextColors.GRAY)
+fun SelectorText.green(): SelectorText = this.color(TextColors.GREEN)
+fun SelectorText.lightPurple(): SelectorText = this.color(TextColors.LIGHT_PURPLE)
+fun SelectorText.red(): SelectorText = this.color(TextColors.RED)
+fun SelectorText.resetColor(): SelectorText = this.color(TextColors.RESET)
+fun SelectorText.white(): SelectorText = this.color(TextColors.WHITE)
+fun SelectorText.yellow(): SelectorText = this.color(TextColors.YELLOW)
+
 fun ScoreText.color(color: TextColor): ScoreText = this.toBuilder().color(color).build()
 
 fun ScoreText.format(format: TextFormat): ScoreText = this.toBuilder().format(format).build()
@@ -220,3 +395,21 @@ fun ScoreText.underline(): ScoreText = this.toBuilder().style(TextStyles.UNDERLI
 fun ScoreText.strikethrough(): ScoreText = this.toBuilder().style(TextStyles.STRIKETHROUGH).build()
 
 fun ScoreText.obfuscated(): ScoreText = this.toBuilder().style(TextStyles.OBFUSCATED).build()
+
+fun ScoreText.aqua(): ScoreText = this.color(TextColors.AQUA)
+fun ScoreText.black(): ScoreText = this.color(TextColors.BLACK)
+fun ScoreText.blue(): ScoreText = this.color(TextColors.BLUE)
+fun ScoreText.darkAqua(): ScoreText = this.color(TextColors.DARK_AQUA)
+fun ScoreText.darkBlue(): ScoreText = this.color(TextColors.DARK_BLUE)
+fun ScoreText.darkGray(): ScoreText = this.color(TextColors.DARK_GRAY)
+fun ScoreText.darkGreen(): ScoreText = this.color(TextColors.DARK_GREEN)
+fun ScoreText.darkPurple(): ScoreText = this.color(TextColors.DARK_PURPLE)
+fun ScoreText.darkRed(): ScoreText = this.color(TextColors.DARK_RED)
+fun ScoreText.gold(): ScoreText = this.color(TextColors.GOLD)
+fun ScoreText.gray(): ScoreText = this.color(TextColors.GRAY)
+fun ScoreText.green(): ScoreText = this.color(TextColors.GREEN)
+fun ScoreText.lightPurple(): ScoreText = this.color(TextColors.LIGHT_PURPLE)
+fun ScoreText.red(): ScoreText = this.color(TextColors.RED)
+fun ScoreText.resetColor(): ScoreText = this.color(TextColors.RESET)
+fun ScoreText.white(): ScoreText = this.color(TextColors.WHITE)
+fun ScoreText.yellow(): ScoreText = this.color(TextColors.YELLOW)
