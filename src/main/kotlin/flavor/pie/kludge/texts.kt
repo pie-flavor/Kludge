@@ -7,6 +7,9 @@ import org.spongepowered.api.text.SelectorText
 import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.TextRepresentable
 import org.spongepowered.api.text.TranslatableText
+import org.spongepowered.api.text.action.ClickAction
+import org.spongepowered.api.text.action.HoverAction
+import org.spongepowered.api.text.action.ShiftClickAction
 import org.spongepowered.api.text.format.TextColor
 import org.spongepowered.api.text.format.TextColors
 import org.spongepowered.api.text.format.TextFormat
@@ -56,6 +59,10 @@ fun String.resetColor(): LiteralText = this.color(TextColors.RESET)
 fun String.white(): LiteralText = this.color(TextColors.WHITE)
 fun String.yellow(): LiteralText = this.color(TextColors.YELLOW)
 
+fun String.onClick(clickAction: ClickAction<*>): LiteralText = Text.builder(this).onClick(clickAction).build()
+fun String.onHover(hoverAction: HoverAction<*>): LiteralText = Text.builder(this).onHover(hoverAction).build()
+fun String.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
 operator fun Translatable.not(): TranslatableText = Text.of(this)
 
 fun Translatable.color(color: TextColor): TranslatableText = Text.builder(this).color(color).build()
@@ -91,6 +98,10 @@ fun Translatable.red(): TranslatableText = this.color(TextColors.RED)
 fun Translatable.resetColor(): TranslatableText = this.color(TextColors.RESET)
 fun Translatable.white(): TranslatableText = this.color(TextColors.WHITE)
 fun Translatable.yellow(): TranslatableText = this.color(TextColors.YELLOW)
+
+fun Translatable.onClick(clickAction: ClickAction<*>): TranslatableText = Text.builder(this).onClick(clickAction).build()
+fun Translatable.onHover(hoverAction: HoverAction<*>): TranslatableText = Text.builder(this).onHover(hoverAction).build()
+fun Translatable.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = Text.builder(this).onShiftClick(shiftClickAction).build()
 
 operator fun Translation.not(): TranslatableText = Text.of(this)
 
@@ -128,6 +139,10 @@ fun Translation.resetColor(): TranslatableText = this.color(TextColors.RESET)
 fun Translation.white(): TranslatableText = this.color(TextColors.WHITE)
 fun Translation.yellow(): TranslatableText = this.color(TextColors.YELLOW)
 
+fun Translation.onClick(clickAction: ClickAction<*>): TranslatableText = Text.builder(this).onClick(clickAction).build()
+fun Translation.onHover(hoverAction: HoverAction<*>): TranslatableText = Text.builder(this).onHover(hoverAction).build()
+fun Translation.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
 operator fun Score.not(): ScoreText = Text.of(this)
 
 fun Score.color(color: TextColor): ScoreText = Text.builder(this).color(color).build()
@@ -164,6 +179,10 @@ fun Score.resetColor(): ScoreText = this.color(TextColors.RESET)
 fun Score.white(): ScoreText = this.color(TextColors.WHITE)
 fun Score.yellow(): ScoreText = this.color(TextColors.YELLOW)
 
+fun Score.onClick(clickAction: ClickAction<*>): ScoreText = Text.builder(this).onClick(clickAction).build()
+fun Score.onHover(hoverAction: HoverAction<*>): ScoreText = Text.builder(this).onHover(hoverAction).build()
+fun Score.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
 operator fun Selector.not(): SelectorText = Text.of(this)
 
 fun Selector.color(color: TextColor): SelectorText = Text.builder(this).color(color).build()
@@ -199,6 +218,10 @@ fun Selector.red(): SelectorText = this.color(TextColors.RED)
 fun Selector.resetColor(): SelectorText = this.color(TextColors.RESET)
 fun Selector.white(): SelectorText = this.color(TextColors.WHITE)
 fun Selector.yellow(): SelectorText = this.color(TextColors.YELLOW)
+
+fun Selector.onClick(clickAction: ClickAction<*>): SelectorText = Text.builder(this).onClick(clickAction).build()
+fun Selector.onHover(hoverAction: HoverAction<*>): SelectorText = Text.builder(this).onHover(hoverAction).build()
+fun Selector.onShiftClick(shiftClickAction: ShiftClickAction<*>): SelectorText = Text.builder(this).onShiftClick(shiftClickAction).build()
 
 operator fun Translation.invoke(vararg args: Any): TranslatableText = Text.of(this, *args)
 
@@ -278,6 +301,10 @@ fun Text.resetColor(): Text = this.color(TextColors.RESET)
 fun Text.white(): Text = this.color(TextColors.WHITE)
 fun Text.yellow(): Text = this.color(TextColors.YELLOW)
 
+fun Text.onClick(clickAction: ClickAction<*>): Text = toBuilder().onClick(clickAction).build()
+fun Text.onHover(hoverAction: HoverAction<*>): Text = toBuilder().onHover(hoverAction).build()
+fun Text.onShiftClick(shiftClickAction: ShiftClickAction<*>): Text = toBuilder().onShiftClick(shiftClickAction).build()
+
 fun LiteralText.color(color: TextColor): LiteralText = this.toBuilder().color(color).build()
 
 fun LiteralText.format(format: TextFormat): LiteralText = this.toBuilder().format(format).build()
@@ -311,6 +338,10 @@ fun LiteralText.red(): LiteralText = this.color(TextColors.RED)
 fun LiteralText.resetColor(): LiteralText = this.color(TextColors.RESET)
 fun LiteralText.white(): LiteralText = this.color(TextColors.WHITE)
 fun LiteralText.yellow(): LiteralText = this.color(TextColors.YELLOW)
+
+fun LiteralText.onClick(clickAction: ClickAction<*>): LiteralText = toBuilder().onClick(clickAction).build()
+fun LiteralText.onHover(hoverAction: HoverAction<*>): LiteralText = toBuilder().onHover(hoverAction).build()
+fun LiteralText.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = toBuilder().onShiftClick(shiftClickAction).build()
 
 fun TranslatableText.color(color: TextColor): TranslatableText = this.toBuilder().color(color).build()
 
@@ -346,6 +377,10 @@ fun TranslatableText.resetColor(): TranslatableText = this.color(TextColors.RESE
 fun TranslatableText.white(): TranslatableText = this.color(TextColors.WHITE)
 fun TranslatableText.yellow(): TranslatableText = this.color(TextColors.YELLOW)
 
+fun TranslatableText.onClick(clickAction: ClickAction<*>): TranslatableText = toBuilder().onClick(clickAction).build()
+fun TranslatableText.onHover(hoverAction: HoverAction<*>): TranslatableText = toBuilder().onHover(hoverAction).build()
+fun TranslatableText.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = toBuilder().onShiftClick(shiftClickAction).build()
+
 fun SelectorText.color(color: TextColor): SelectorText = this.toBuilder().color(color).build()
 
 fun SelectorText.format(format: TextFormat): SelectorText = this.toBuilder().format(format).build()
@@ -380,6 +415,10 @@ fun SelectorText.resetColor(): SelectorText = this.color(TextColors.RESET)
 fun SelectorText.white(): SelectorText = this.color(TextColors.WHITE)
 fun SelectorText.yellow(): SelectorText = this.color(TextColors.YELLOW)
 
+fun SelectorText.onClick(clickAction: ClickAction<*>): SelectorText = toBuilder().onClick(clickAction).build()
+fun SelectorText.onHover(hoverAction: HoverAction<*>): SelectorText = toBuilder().onHover(hoverAction).build()
+fun SelectorText.onShiftClick(shiftClickAction: ShiftClickAction<*>): SelectorText = toBuilder().onShiftClick(shiftClickAction).build()
+
 fun ScoreText.color(color: TextColor): ScoreText = this.toBuilder().color(color).build()
 
 fun ScoreText.format(format: TextFormat): ScoreText = this.toBuilder().format(format).build()
@@ -413,3 +452,7 @@ fun ScoreText.red(): ScoreText = this.color(TextColors.RED)
 fun ScoreText.resetColor(): ScoreText = this.color(TextColors.RESET)
 fun ScoreText.white(): ScoreText = this.color(TextColors.WHITE)
 fun ScoreText.yellow(): ScoreText = this.color(TextColors.YELLOW)
+
+fun ScoreText.onClick(clickAction: ClickAction<*>): ScoreText = toBuilder().onClick(clickAction).build()
+fun ScoreText.onHover(hoverAction: HoverAction<*>): ScoreText = toBuilder().onHover(hoverAction).build()
+fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = toBuilder().onShiftClick(shiftClickAction).build()
