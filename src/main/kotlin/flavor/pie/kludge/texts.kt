@@ -6,6 +6,7 @@ import org.spongepowered.api.text.ScoreText
 import org.spongepowered.api.text.SelectorText
 import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.TextRepresentable
+import org.spongepowered.api.text.TextTemplate
 import org.spongepowered.api.text.TranslatableText
 import org.spongepowered.api.text.action.ClickAction
 import org.spongepowered.api.text.action.HoverAction
@@ -456,3 +457,75 @@ fun ScoreText.yellow(): ScoreText = this.color(TextColors.YELLOW)
 fun ScoreText.onClick(clickAction: ClickAction<*>): ScoreText = toBuilder().onClick(clickAction).build()
 fun ScoreText.onHover(hoverAction: HoverAction<*>): ScoreText = toBuilder().onHover(hoverAction).build()
 fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = toBuilder().onShiftClick(shiftClickAction).build()
+
+fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false): Text {
+    val text = if (children.isEmpty()) this else {
+        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue) }).build()
+    }
+    val plain = toPlainSingle()
+    if (!plain.contains(oldValue, ignoreCase)) {
+        return text
+    }
+    if (plain.equals(oldValue, ignoreCase)) {
+        return newValue
+    }
+    val builder = Text.builder()
+    val strs = plain.split(oldValue, ignoreCase = ignoreCase)
+    for (str in strs.dropLast(1)) {
+        builder.append(!str)
+        builder.append(newValue)
+    }
+    builder.append(!strs.last())
+    if (plain.endsWith(oldValue)) { // #java
+        builder.append(newValue)
+    }
+    builder.style(text.style).color(text.color).append(text.children)
+    return builder.build()
+}
+
+fun Text.replaceCapturing(regex: Regex, newValue: Text, named: Boolean = false): Text {
+    val text = if (children.isEmpty()) this else {
+        toBuilder().removeAll().append(children.map { it.replaceCapturing(regex, newValue) }).build()
+    }
+    if (text is ScoreText || text is SelectorText || text is TranslatableText) return text
+    val plain = toPlainSingle()
+    if (!plain.contains(regex)) {
+        return text
+    }
+    if (regex.matchEntire(plain) != null) {
+        return newValue
+    }
+    val builder = Text.builder()
+    val results = regex.findAll(plain).iterator()
+    val strs = regex.split(plain)
+    fun addNext() {
+        val result = results.next()
+        var toAdd = newValue
+        for ((num, group) in result.groups.filterNotNull().withIndex()) {
+            toAdd = toAdd.replace("$${num+1}", !group.value)
+        }
+        if (named) {
+            val namedResults = namedGroupRegex.findAll(newValue.toPlain())
+                    .map { it.groups[1] }.filterNotNull().map { it.value }.toSet()
+            for (name in namedResults) {
+                val replacementGroup = result.groups[name]
+                if (replacementGroup != null) {
+                    toAdd = toAdd.replace("$$name", !replacementGroup.value)
+                }
+            }
+        }
+        builder.append(toAdd)
+    }
+    for (str in strs.dropLast(1)) {
+        builder.append(!str)
+        addNext()
+    }
+    builder.append(!strs.last())
+    if (results.hasNext()) {
+        addNext()
+    }
+    builder.style(text.style).color(text.color).append(text.children)
+    return builder.build()
+}
+
+internal val namedGroupRegex = """\$([a-zA-Z]\w*?)""".toRegex()
