@@ -476,9 +476,6 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false):
         builder.append(newValue)
     }
     builder.append(!strs.last())
-    if (plain.endsWith(oldValue)) { // #java
-        builder.append(newValue)
-    }
     builder.style(text.style).color(text.color).append(text.children)
     return builder.build()
 }
