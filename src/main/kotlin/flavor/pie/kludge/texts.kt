@@ -17,6 +17,7 @@ import org.spongepowered.api.text.format.TextFormat
 import org.spongepowered.api.text.format.TextStyle
 import org.spongepowered.api.text.format.TextStyles
 import org.spongepowered.api.text.selector.Selector
+import org.spongepowered.api.text.serializer.TextSerializers
 import org.spongepowered.api.text.translation.Translatable
 import org.spongepowered.api.text.translation.Translation
 
@@ -63,6 +64,10 @@ fun String.yellow(): LiteralText = this.color(TextColors.YELLOW)
 fun String.onClick(clickAction: ClickAction<*>): LiteralText = Text.builder(this).onClick(clickAction).build()
 fun String.onHover(hoverAction: HoverAction<*>): LiteralText = Text.builder(this).onHover(hoverAction).build()
 fun String.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
+fun String.textByJson(): Text = TextSerializers.JSON.deserialize(this)
+fun String.textByFormat(): Text = TextSerializers.FORMATTING_CODE.deserialize(this)
+fun String.textByFormat(c: Char): Text = TextSerializers.formattingCode(c).deserialize(this)
 
 operator fun Translatable.not(): TranslatableText = Text.of(this)
 
