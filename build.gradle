@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compileOnly 'org.spongepowered:spongeapi:6.0.0'
+    compileOnly 'org.spongepowered:spongeapi:7.0.0'
 }
 
 compileKotlin {

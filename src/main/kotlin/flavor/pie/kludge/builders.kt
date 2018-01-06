@@ -1,4 +1,4 @@
-@file:Suppress("UNCHECKED_CAST")
+@file:Suppress("UNCHECKED_CAST", "FunctionName")
 package flavor.pie.kludge
 import org.spongepowered.api.block.BlockSnapshot
 import org.spongepowered.api.block.BlockState
@@ -39,16 +39,6 @@ import org.spongepowered.api.event.cause.entity.health.source.BlockHealingSource
 import org.spongepowered.api.event.cause.entity.health.source.EntityHealingSource
 import org.spongepowered.api.event.cause.entity.health.source.HealingSource
 import org.spongepowered.api.event.cause.entity.health.source.IndirectEntityHealingSource
-import org.spongepowered.api.event.cause.entity.spawn.BlockSpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.BreedingSpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.EntitySpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.LocatableBlockSpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.MobSpawnerSpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.SpawnCause
-import org.spongepowered.api.event.cause.entity.spawn.WeatherSpawnCause
-import org.spongepowered.api.event.cause.entity.teleport.EntityTeleportCause
-import org.spongepowered.api.event.cause.entity.teleport.PortalTeleportCause
-import org.spongepowered.api.event.cause.entity.teleport.TeleportCause
 import org.spongepowered.api.extra.fluid.FluidStack
 import org.spongepowered.api.extra.fluid.FluidStackSnapshot
 import org.spongepowered.api.item.FireworkEffect
@@ -113,9 +103,7 @@ inline fun BlockBlob(fn: BlockBlob.Builder.() -> Unit): BlockBlob = BlockBlob.bu
 inline fun BlockDamageSource(fn: BlockDamageSource.Builder.() -> Unit): BlockDamageSource = BlockDamageSource.builder().apply(fn).build()
 inline fun BlockHealingSource(fn: BlockHealingSource.Builder.() -> Unit): BlockHealingSource = BlockHealingSource.builder().apply(fn).build()
 inline fun BlockSnapshot(fn: BlockSnapshot.Builder.() -> Unit): BlockSnapshot = BlockSnapshot.builder().apply(fn).build()
-inline fun BlockSpawnCause(fn: BlockSpawnCause.Builder.() -> Unit): BlockSpawnCause = BlockSpawnCause.builder().apply(fn).build()
 inline fun BlockState(fn: BlockState.Builder.() -> Unit): BlockState = BlockState.builder().apply(fn).build()
-inline fun BreedingSpawnCause(fn: BreedingSpawnCause.Builder.() -> Unit): BreedingSpawnCause = BreedingSpawnCause.builder().apply(fn).build()
 inline fun Cactus(fn: Cactus.Builder.() -> Unit): Cactus = Cactus.builder().apply(fn).build()
 inline fun ChorusFlower(fn: ChorusFlower.Builder.() -> Unit): ChorusFlower = ChorusFlower.builder().apply(fn).build()
 inline fun WorldBorder.newChunkPreGenerate(world: World, fn: ChunkPreGenerate.Builder.() -> Unit): ChunkPreGenerate = this.newChunkPreGenerate(world).apply(fn).start()
@@ -131,8 +119,6 @@ inline fun EntityArchetype(fn: EntityArchetype.Builder.() -> Unit): EntityArchet
 inline fun EntityDamageSource(fn: EntityDamageSource.Builder.() -> Unit): EntityDamageSource = EntityDamageSource.builder().apply(fn).build()
 inline fun EntityHealingSource(fn: EntityHealingSource.Builder.() -> Unit): EntityHealingSource = EntityHealingSource.builder().apply(fn).build()
 inline fun EntitySnapshot(fn: EntitySnapshot.Builder.() -> Unit): EntitySnapshot = EntitySnapshot.builder().apply(fn).build()
-inline fun EntitySpawnCause(fn: EntitySpawnCause.Builder.() -> Unit): EntitySpawnCause = EntitySpawnCause.builder().apply(fn).build()
-inline fun EntityTeleportCause(fn: EntityTeleportCause.Builder.() -> Unit): EntityTeleportCause = EntityTeleportCause.builder().apply(fn).build()
 inline fun Explosion(fn: Explosion.Builder.() -> Unit): Explosion = Explosion.builder().apply(fn).build()
 inline fun FallingBlockDamageSource(fn: FallingBlockDamageSource.Builder.() -> Unit): FallingBlockDamageSource = FallingBlockDamageSource.builder().apply(fn).build()
 inline fun FindNearestAttackableTargetAITask(owner: Creature, fn: FindNearestAttackableTargetAITask.Builder.() -> Unit): FindNearestAttackableTargetAITask = FindNearestAttackableTargetAITask.builder().apply(fn).build(owner)
@@ -155,17 +141,14 @@ inline fun ItemStack(fn: ItemStack.Builder.() -> Unit): ItemStack = ItemStack.bu
 inline fun ItemStackGenerator(fn: ItemStackGenerator.Builder.() -> Unit): ItemStackGenerator = ItemStackGenerator.builder().apply(fn).build()
 inline fun Lake(fn: Lake.Builder.() -> Unit): Lake = Lake.builder().apply(fn).build()
 inline fun LocatableBlock(fn: LocatableBlock.Builder.() -> Unit): LocatableBlock = LocatableBlock.builder().apply(fn).build()
-inline fun LocatableBlockSpawnCause(fn: LocatableBlockSpawnCause.Builder.() -> Unit): LocatableBlockSpawnCause = LocatableBlockSpawnCause.builder().apply(fn).build()
 inline fun LookIdleAITask(owner: Agent, fn: LookIdleAITask.Builder.() -> Unit): LookIdleAITask = LookIdleAITask.builder().apply(fn).build(owner)
 inline fun Melon(fn: Melon.Builder.() -> Unit): Melon = Melon.builder().apply(fn).build()
-inline fun MobSpawnerSpawnCause(fn: MobSpawnerSpawnCause.Builder.() -> Unit): MobSpawnerSpawnCause = MobSpawnerSpawnCause.builder().apply(fn).build()
 inline fun Mushroom(fn: Mushroom.Builder.() -> Unit): Mushroom = Mushroom.builder().apply(fn).build()
 inline fun NetherFire(fn: NetherFire.Builder.() -> Unit): NetherFire = NetherFire.builder().apply(fn).build()
 inline fun Objective(fn: Objective.Builder.() -> Unit): Objective = Objective.builder().apply(fn).build()
 inline fun Ore(fn: Ore.Builder.() -> Unit): Ore = Ore.builder().apply(fn).build()
 inline fun PaginationList(fn: PaginationList.Builder.() -> Unit): PaginationList = PaginationList.builder().apply(fn).build()
 inline fun ParticleEffect(fn: ParticleEffect.Builder.() -> Unit): ParticleEffect = ParticleEffect.builder().apply(fn).build()
-inline fun PortalTeleportCause(fn: PortalTeleportCause.Builder.() -> Unit): PortalTeleportCause = PortalTeleportCause.builder().apply(fn).build()
 inline fun PotionEffect(fn: PotionEffect.Builder.() -> Unit): PotionEffect = PotionEffect.builder().apply(fn).build()
 inline fun Pumpkin(fn: Pumpkin.Builder.() -> Unit): Pumpkin = Pumpkin.builder().apply(fn).build()
 inline fun RandomBlock(fn: RandomBlock.Builder.() -> Unit): RandomBlock = RandomBlock.builder().apply(fn).build()
@@ -180,12 +163,10 @@ inline fun Selector(fn: Selector.Builder.() -> Unit): Selector = Selector.builde
 inline fun ServerBossBar(fn: ServerBossBar.Builder.() -> Unit): ServerBossBar = ServerBossBar.builder().apply(fn).build()
 inline fun Shrub(fn: Shrub.Builder.() -> Unit): Shrub = Shrub.builder().apply(fn).build()
 inline fun SoundType(id: String, fn: SoundType.Builder.() -> Unit): SoundType = SoundType.builder().apply(fn).build(id)
-inline fun SpawnCause(fn: SpawnCause.Builder.() -> Unit): SpawnCause = SpawnCause.builder().apply(fn).build()
 inline fun SwimmingAITask(owner: Agent, fn: SwimmingAITask.Builder.() -> Unit): SwimmingAITask = SwimmingAITask.builder().apply(fn).build(owner)
 inline fun TabListEntry(fn: TabListEntry.Builder.() -> Unit): TabListEntry = TabListEntry.builder().apply(fn).build()
 inline fun Task(plugin: Any, fn: Task.Builder.() -> Unit): Task = Task.builder().apply(fn).submit(plugin)
 inline fun Team(fn: Team.Builder.() -> Unit): Team = Team.builder().apply(fn).build()
-inline fun TeleportCause(fn: TeleportCause.Builder.() -> Unit): TeleportCause = TeleportCause.builder().apply(fn).build()
 inline fun TileEntityArchetype(fn: TileEntityArchetype.Builder.() -> Unit): TileEntityArchetype = TileEntityArchetype.builder().apply(fn).build()
 inline fun TradeOffer(fn: TradeOffer.Builder.() -> Unit): TradeOffer = TradeOffer.builder().apply(fn).build()
 inline fun TradeOfferGenerator(fn: TradeOfferGenerator.Builder.() -> Unit): TradeOfferGenerator = TradeOfferGenerator.builder().apply(fn).build()
@@ -194,5 +175,4 @@ inline fun VirtualBiomeType(id: String, fn: VirtualBiomeType.Builder.() -> Unit)
 inline fun WanderAITask(owner: Creature, fn: WanderAITask.Builder.() -> Unit): WanderAITask = WanderAITask.builder().apply(fn).build(owner)
 inline fun WatchClosestAITask(owner: Agent, fn: WatchClosestAITask.Builder.() -> Unit): WatchClosestAITask = WatchClosestAITask.builder().apply(fn).build(owner)
 inline fun WaterLily(fn: WaterLily.Builder.() -> Unit): WaterLily = WaterLily.builder().apply(fn).build()
-inline fun WeatherSpawnCause(fn: WeatherSpawnCause.Builder.() -> Unit): WeatherSpawnCause = WeatherSpawnCause.builder().apply(fn).build()
 inline fun WorldArchetype(id: String, name: String, fn: WorldArchetype.Builder.() -> Unit): WorldArchetype = WorldArchetype.builder().apply(fn).build(id, name)

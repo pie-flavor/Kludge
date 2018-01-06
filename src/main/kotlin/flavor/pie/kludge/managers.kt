@@ -1,3 +1,5 @@
+@file:Suppress("PropertyName")
+
 package flavor.pie.kludge
 
 import org.spongepowered.api.Game
@@ -11,6 +13,7 @@ import org.spongepowered.api.command.CommandManager
 import org.spongepowered.api.config.ConfigManager
 import org.spongepowered.api.data.DataManager
 import org.spongepowered.api.data.property.PropertyRegistry
+import org.spongepowered.api.event.CauseStackManager
 import org.spongepowered.api.event.EventManager
 import org.spongepowered.api.network.ChannelRegistrar
 import org.spongepowered.api.plugin.PluginManager
@@ -24,7 +27,7 @@ inline val ChannelRegistrar: ChannelRegistrar get() = Sponge.getChannelRegistrar
 inline val CommandManager: CommandManager get() = Sponge.getCommandManager()
 inline val ConfigManager: ConfigManager get() = Sponge.getConfigManager()
 inline val DataManager: DataManager get() = Sponge.getDataManager()
-inline val GameDictionary: GameDictionary get() = Sponge.getDictionary()
+inline val GameDictionary: GameDictionary? get() = !Sponge.getDictionary()
 inline val EventManager: EventManager get() = Sponge.getEventManager()
 inline val Game: Game get() = Sponge.getGame()
 inline val Platform: Platform get() = Sponge.getPlatform()
@@ -36,3 +39,4 @@ inline val Server: Server get() = Sponge.getServer()
 inline val ServiceManager: ServiceManager get() = Sponge.getServiceManager()
 inline val TeleportHelper: TeleportHelper get() = Sponge.getTeleportHelper()
 inline val GameProfileManager: GameProfileManager get() = Sponge.getServer().gameProfileManager
+inline val CauseStackManager: CauseStackManager get() = Sponge.getCauseStackManager()

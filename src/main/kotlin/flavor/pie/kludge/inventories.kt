@@ -7,6 +7,7 @@ import org.spongepowered.api.item.inventory.ItemStack
 import org.spongepowered.api.item.inventory.Slot
 import org.spongepowered.api.item.inventory.property.SlotIndex
 import org.spongepowered.api.item.inventory.property.SlotPos
+import org.spongepowered.api.item.inventory.query.QueryOperationTypes
 import org.spongepowered.api.item.inventory.type.Inventory2D
 import org.spongepowered.api.item.inventory.type.OrderedInventory
 import org.spongepowered.api.text.translation.Translation
@@ -20,29 +21,40 @@ operator fun Inventory.plusAssign(stack: ItemStack) {
     offer(stack)
 }
 
-operator fun <T: Inventory> Inventory.get(vararg types: KClass<*>): T = query(*types)
+operator fun <T: Inventory> Inventory.get(vararg types: KClass<out Inventory>): T =
+        query(*types.map { QueryOperationTypes.INVENTORY_TYPE.of(it.java) }.toTypedArray())
 
-operator fun <T: Inventory> Inventory.get(type: KClass<T>): T = query(type)
+operator fun <T: Inventory> Inventory.get(type: KClass<T>): T =
+        query(QueryOperationTypes.INVENTORY_TYPE.of(type.java))
 
-operator fun Inventory.get(vararg types: ItemType): Inventory = query(*types)
+operator fun Inventory.get(vararg types: ItemType): Inventory =
+        query(*types.map { QueryOperationTypes.ITEM_TYPE.of(it) }.toTypedArray())
 
-operator fun Inventory.get(vararg types: ItemStack): Inventory = query(*types)
+operator fun Inventory.get(vararg types: ItemStack): Inventory =
+        query(*types.map { QueryOperationTypes.ITEM_STACK_IGNORE_QUANTITY.of(it) }.toTypedArray())
 
-operator fun Inventory.get(vararg props: InventoryProperty<*, *>): Inventory = query(*props)
+operator fun Inventory.get(vararg props: InventoryProperty<*, *>): Inventory =
+        query(*props.map { QueryOperationTypes.INVENTORY_PROPERTY.of(it) }.toTypedArray())
 
-operator fun Inventory.get(vararg names: Translation): Inventory = query(*names)
+operator fun Inventory.get(vararg names: Translation): Inventory =
+        query(*names.map { QueryOperationTypes.INVENTORY_TRANSLATION.of(it) }.toTypedArray())
 
-operator fun Inventory.get(vararg names: String): Inventory = query(*names)
-
-operator fun Inventory.get(vararg args: Any): Inventory = query(*args)
-
-operator fun Inventory.invoke(vararg types: ItemStack): Inventory = queryAny(*types)
+@Suppress("UNCHECKED_CAST")
+operator fun Inventory.get(vararg args: Any): Inventory =
+        query(*args.map { when (it) {
+            is KClass<*> -> QueryOperationTypes.INVENTORY_TYPE.of((it as KClass<out Inventory>).java)
+            is ItemType -> QueryOperationTypes.ITEM_TYPE.of(it)
+            is ItemStack -> QueryOperationTypes.ITEM_STACK_IGNORE_QUANTITY.of(it)
+            is InventoryProperty<*, *> -> QueryOperationTypes.INVENTORY_PROPERTY.of(it)
+            is Translation -> QueryOperationTypes.INVENTORY_TRANSLATION.of(it)
+            else -> throw IllegalArgumentException()
+        } }.toTypedArray())
 
 operator fun Inventory.invoke(): ItemStack? = peek().unwrap()
 
 val Inventory.slots: Iterable<Slot> get() = slots()
 
-operator fun Inventory.get(index: Int): Slot? = query(SlotIndex(index))
+operator fun Inventory.get(index: Int): Slot? = this[SlotIndex(index)] as? Slot
 
 operator fun OrderedInventory.get(index: Int): Slot? = getSlot(SlotIndex(index)).unwrap()
 
@@ -52,7 +64,7 @@ operator fun OrderedInventory.set(index: Int, stack: ItemStack) {
     set(SlotIndex(index), stack)
 }
 
-operator fun Inventory.get(x: Int, y: Int): Slot? = query(SlotPos(x, y))
+operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos(x, y)] as? Slot
 
 operator fun Inventory2D.get(x: Int, y: Int): Slot? = getSlot(SlotPos(x, y)).unwrap()
 
@@ -60,4 +72,8 @@ operator fun Inventory2D.invoke(x: Int, y: Int): Slot? = getSlot(SlotPos(x, y)).
 
 operator fun Inventory2D.set(x: Int, y: Int, stack: ItemStack) {
     set(SlotPos(x, y), stack)
+}
+
+operator fun Inventory.set(x: Int, y: Int, stack: ItemStack) {
+    (this[x, y] ?: throw IllegalArgumentException()).offer(stack)
 }
