@@ -11,6 +11,7 @@ import org.spongepowered.api.item.inventory.query.QueryOperationTypes
 import org.spongepowered.api.item.inventory.type.Inventory2D
 import org.spongepowered.api.item.inventory.type.OrderedInventory
 import org.spongepowered.api.text.translation.Translation
+import java.util.function.Predicate
 import kotlin.reflect.KClass
 
 operator fun <T: InventoryProperty<*, *>> Inventory.get(property: KClass<T>, key: Any): T? = getProperty(property.java, key).unwrap()
@@ -39,6 +40,9 @@ operator fun Inventory.get(vararg props: InventoryProperty<*, *>): Inventory =
 operator fun Inventory.get(vararg names: Translation): Inventory =
         query(*names.map { QueryOperationTypes.INVENTORY_TRANSLATION.of(it) }.toTypedArray())
 
+operator fun Inventory.get(vararg predicates: (ItemStack) -> Boolean): Inventory =
+        query(*predicates.map { QueryOperationTypes.ITEM_STACK_CUSTOM.of(Predicate(it)) }.toTypedArray())
+
 @Suppress("UNCHECKED_CAST")
 operator fun Inventory.get(vararg args: Any): Inventory =
         query(*args.map { when (it) {
@@ -47,8 +51,12 @@ operator fun Inventory.get(vararg args: Any): Inventory =
             is ItemStack -> QueryOperationTypes.ITEM_STACK_IGNORE_QUANTITY.of(it)
             is InventoryProperty<*, *> -> QueryOperationTypes.INVENTORY_PROPERTY.of(it)
             is Translation -> QueryOperationTypes.INVENTORY_TRANSLATION.of(it)
+            is Function1<*, *> -> QueryOperationTypes.ITEM_STACK_CUSTOM.of(Predicate(it as (ItemStack) -> Boolean))
             else -> throw IllegalArgumentException()
         } }.toTypedArray())
+
+operator fun Inventory.invoke(vararg stacks: ItemStack): Inventory =
+        query(*stacks.map { QueryOperationTypes.ITEM_STACK_EXACT.of(it) }.toTypedArray())
 
 operator fun Inventory.invoke(): ItemStack? = peek().unwrap()
 
