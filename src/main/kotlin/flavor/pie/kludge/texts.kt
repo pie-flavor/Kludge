@@ -418,11 +418,11 @@ fun ScoreText.onClick(clickAction: ClickAction<*>): ScoreText = toBuilder().onCl
 fun ScoreText.onHover(hoverAction: HoverAction<*>): ScoreText = toBuilder().onHover(hoverAction).build()
 fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = toBuilder().onShiftClick(shiftClickAction).build()
 
-fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false): Text {
+fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false, lossy: Boolean = false): Text {
     val text = if (children.isEmpty()) this else {
         toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue, ignoreCase) }).build()
     }
-    val plain = toPlainSingle()
+    val plain = if (lossy) toPlain() else toPlainSingle()
     if (!plain.contains(oldValue, ignoreCase)) {
         return text
     }
@@ -442,11 +442,11 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false):
     return builder.build()
 }
 
-fun Text.replace(oldValue: Regex, newValue: Text): Text {
+fun Text.replace(oldValue: Regex, newValue: Text, lossy: Boolean = false): Text {
     val text = if (children.isEmpty()) this else {
         toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue) }).build()
     }
-    val plain = toPlainSingle()
+    val plain = if (lossy) toPlain() else toPlainSingle()
     if (oldValue in plain) {
         return text
     }
