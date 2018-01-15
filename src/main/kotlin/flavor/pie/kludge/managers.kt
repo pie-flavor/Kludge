@@ -13,8 +13,11 @@ import org.spongepowered.api.command.CommandManager
 import org.spongepowered.api.config.ConfigManager
 import org.spongepowered.api.data.DataManager
 import org.spongepowered.api.data.property.PropertyRegistry
+import org.spongepowered.api.data.value.ValueFactory
 import org.spongepowered.api.event.CauseStackManager
 import org.spongepowered.api.event.EventManager
+import org.spongepowered.api.item.recipe.crafting.CraftingRecipeRegistry
+import org.spongepowered.api.item.recipe.smelting.SmeltingRecipeRegistry
 import org.spongepowered.api.network.ChannelRegistrar
 import org.spongepowered.api.plugin.PluginManager
 import org.spongepowered.api.profile.GameProfileManager
@@ -40,3 +43,6 @@ inline val ServiceManager: ServiceManager get() = Sponge.getServiceManager()
 inline val TeleportHelper: TeleportHelper get() = Sponge.getTeleportHelper()
 inline val GameProfileManager: GameProfileManager get() = Sponge.getServer().gameProfileManager
 inline val CauseStackManager: CauseStackManager get() = Sponge.getCauseStackManager()
+inline val ValueFactory: ValueFactory get() = Sponge.getRegistry().valueFactory
+inline val CraftingRecipeRegistry: CraftingRecipeRegistry get() = Sponge.getRegistry().craftingRecipeRegistry
+inline val SmeltingRecipeRegistry: SmeltingRecipeRegistry get() = Sponge.getRegistry().smeltingRecipeRegistry
