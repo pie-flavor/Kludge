@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty
 
 class Service<out T : Any>(private val clazz: KClass<T>) {
     companion object {
-        inline operator fun <reified T> getValue(thisRef: Any?, property: KProperty<*>): T? {
+        inline operator fun <reified T: Any> getValue(thisRef: Any?, property: KProperty<*>): T? {
             return !ServiceManager.provide(T::class.java)
         }
     }
@@ -22,7 +22,7 @@ class Service<out T : Any>(private val clazz: KClass<T>) {
 
 class UncheckedService<out T : Any>(private val clazz: KClass<T>) {
     companion object {
-        inline operator fun <reified T> getValue(thisRef: Any?, property: KProperty<*>): T {
+        inline operator fun <reified T: Any> getValue(thisRef: Any?, property: KProperty<*>): T {
             return ServiceManager.provideUnchecked(T::class.java)
         }
     }
@@ -36,4 +36,14 @@ class UncheckedService<out T : Any>(private val clazz: KClass<T>) {
         println(property)
         return t!!
     }
+}
+
+object CachedService {
+    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): Service<T>
+            = Service(T::class)
+}
+
+object CachedUncheckedService {
+    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): UncheckedService<T>
+            = UncheckedService(T::class)
 }
