@@ -81,7 +81,7 @@ operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos(x, y)] as? Slot
 
 operator fun Inventory2D.get(x: Int, y: Int): Slot? = getSlot(SlotPos(x, y)).unwrap()
 
-operator fun Inventory2D.invoke(x: Int, y: Int): Slot? = getSlot(SlotPos(x, y)).unwrap()
+operator fun Inventory2D.invoke(x: Int, y: Int): ItemStack? = peek(SlotPos(x, y)).unwrap()
 
 operator fun Inventory2D.set(x: Int, y: Int, stack: ItemStack) {
     set(SlotPos(x, y), stack)
