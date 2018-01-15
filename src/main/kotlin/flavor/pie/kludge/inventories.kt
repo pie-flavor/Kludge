@@ -7,6 +7,8 @@ import org.spongepowered.api.item.inventory.ItemStack
 import org.spongepowered.api.item.inventory.Slot
 import org.spongepowered.api.item.inventory.property.SlotIndex
 import org.spongepowered.api.item.inventory.property.SlotPos
+import org.spongepowered.api.item.inventory.query.QueryOperation
+import org.spongepowered.api.item.inventory.query.QueryOperationType
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes
 import org.spongepowered.api.item.inventory.type.Inventory2D
 import org.spongepowered.api.item.inventory.type.OrderedInventory
@@ -42,6 +44,9 @@ operator fun Inventory.get(vararg names: Translation): Inventory =
 
 operator fun Inventory.get(vararg predicates: (ItemStack) -> Boolean): Inventory =
         query(*predicates.map { QueryOperationTypes.ITEM_STACK_CUSTOM.of(Predicate(it)) }.toTypedArray())
+
+operator fun Inventory.get(vararg queries: QueryOperation<*>): Inventory =
+        query(*queries)
 
 @Suppress("UNCHECKED_CAST")
 operator fun Inventory.get(vararg args: Any): Inventory =
