@@ -33,7 +33,6 @@ class UncheckedService<out T : Any>(private val clazz: KClass<T>) {
         if (t == null) {
             t = ServiceManager.provideUnchecked(clazz.java)
         }
-        println(property)
         return t!!
     }
 }
