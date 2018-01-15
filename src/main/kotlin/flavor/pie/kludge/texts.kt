@@ -440,49 +440,49 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false):
     return builder.build()
 }
 
-fun Text.replaceCapturing(regex: Regex, newValue: Text, named: Boolean = false): Text {
-    val text = if (children.isEmpty()) this else {
-        toBuilder().removeAll().append(children.map { it.replaceCapturing(regex, newValue) }).build()
-    }
-    if (text is ScoreText || text is SelectorText || text is TranslatableText) return text
-    val plain = toPlainSingle()
-    if (!plain.contains(regex)) {
-        return text
-    }
-    if (regex.matchEntire(plain) != null) {
-        return newValue
-    }
-    val builder = Text.builder()
-    val results = regex.findAll(plain).iterator()
-    val strs = regex.split(plain)
-    fun addNext() {
-        val result = results.next()
-        var toAdd = newValue
-        for ((num, group) in result.groups.filterNotNull().withIndex()) {
-            toAdd = toAdd.replace("$${num+1}", !group.value)
-        }
-        if (named) {
-            val namedResults = namedGroupRegex.findAll(newValue.toPlain())
-                    .map { it.groups[1] }.filterNotNull().map { it.value }.toSet()
-            for (name in namedResults) {
-                val replacementGroup = result.groups[name]
-                if (replacementGroup != null) {
-                    toAdd = toAdd.replace("$$name", !replacementGroup.value)
-                }
-            }
-        }
-        builder.append(toAdd)
-    }
-    for (str in strs.dropLast(1)) {
-        builder.append(!str)
-        addNext()
-    }
-    builder.append(!strs.last())
-    if (results.hasNext()) {
-        addNext()
-    }
-    builder.style(text.style).color(text.color).append(text.children)
-    return builder.build()
-}
-
-internal val namedGroupRegex = """\$([a-zA-Z]\w*?)""".toRegex()
+//fun Text.replaceCapturing(regex: Regex, newValue: Text, named: Boolean = false): Text {
+//    val text = if (children.isEmpty()) this else {
+//        toBuilder().removeAll().append(children.map { it.replaceCapturing(regex, newValue) }).build()
+//    }
+//    if (text is ScoreText || text is SelectorText || text is TranslatableText) return text
+//    val plain = toPlainSingle()
+//    if (!plain.contains(regex)) {
+//        return text
+//    }
+//    if (regex.matchEntire(plain) != null) {
+//        return newValue
+//    }
+//    val builder = Text.builder()
+//    val results = regex.findAll(plain).iterator()
+//    val strs = regex.split(plain)
+//    fun addNext() {
+//        val result = results.next()
+//        var toAdd = newValue
+//        for ((num, group) in result.groups.filterNotNull().withIndex()) {
+//            toAdd = toAdd.replace("$${num+1}", !group.value)
+//        }
+//        if (named) {
+//            val namedResults = namedGroupRegex.findAll(newValue.toPlain())
+//                    .map { it.groups[1] }.filterNotNull().map { it.value }.toSet()
+//            for (name in namedResults) {
+//                val replacementGroup = result.groups[name]
+//                if (replacementGroup != null) {
+//                    toAdd = toAdd.replace("$$name", !replacementGroup.value)
+//                }
+//            }
+//        }
+//        builder.append(toAdd)
+//    }
+//    for (str in strs.dropLast(1)) {
+//        builder.append(!str)
+//        addNext()
+//    }
+//    builder.append(!strs.last())
+//    if (results.hasNext()) {
+//        addNext()
+//    }
+//    builder.style(text.style).color(text.color).append(text.children)
+//    return builder.build()
+//}
+//
+//internal val namedGroupRegex = """\$([a-zA-Z]\w*?)""".toRegex()
