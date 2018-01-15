@@ -420,7 +420,7 @@ fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = t
 
 fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false): Text {
     val text = if (children.isEmpty()) this else {
-        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue) }).build()
+        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue, ignoreCase) }).build()
     }
     val plain = toPlainSingle()
     if (!plain.contains(oldValue, ignoreCase)) {
@@ -435,8 +435,34 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false):
         builder.append(!str)
         builder.append(newValue)
     }
-    builder.append(!strs.last())
-    builder.style(text.style).color(text.color).append(text.children)
+    builder.append(!strs.last()).append(text.children).style(text.style)
+    text.clickAction.ifPresent { builder.onClick(it) }
+    text.hoverAction.ifPresent { builder.onHover(it) }
+    text.shiftClickAction.ifPresent { builder.onShiftClick(it) }
+    return builder.build()
+}
+
+fun Text.replace(oldValue: Regex, newValue: Text): Text {
+    val text = if (children.isEmpty()) this else {
+        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue) }).build()
+    }
+    val plain = toPlainSingle()
+    if (oldValue in plain) {
+        return text
+    }
+    if (oldValue.matchEntire(plain) != null) {
+        return newValue
+    }
+    val builder = Text.builder()
+    val strs = plain.split(oldValue)
+    for (str in strs.dropLast(1)) {
+        builder.append(!str)
+        builder.append(newValue)
+    }
+    builder.append(!strs.last()).append(text.children).style(text.style)
+    text.clickAction.ifPresent { builder.onClick(it) }
+    text.hoverAction.ifPresent { builder.onHover(it) }
+    text.shiftClickAction.ifPresent { builder.onShiftClick(it) }
     return builder.build()
 }
 
