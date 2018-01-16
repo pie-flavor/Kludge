@@ -27,8 +27,8 @@ operator fun Score.div(i: Int): Int = score / i
 operator fun Score.rem(i: Int): Int = score % i
 operator fun Score.compareTo(i: Int): Int = score.compareTo(i)
 operator fun Score.compareTo(s: Score): Int = score.compareTo(s.score)
-operator fun Score.unaryPlus() { +score }
-operator fun Score.unaryMinus() { -score }
+operator fun Score.unaryPlus(): Int = +score
+operator fun Score.unaryMinus(): Int = -score
 
 operator fun Team.plusAssign(member: Text) = addMember(member)
 operator fun Team.minusAssign(member: Text) { removeMember(member) }
