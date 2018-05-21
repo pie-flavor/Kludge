@@ -228,3 +228,11 @@ operator fun Vectori.unaryMinus(): Vectori = negate()
 
 operator fun Vectorl.times(a: Long): Vectorl = mul(a)
 operator fun Vectorl.unaryMinus(): Vectorl = negate()
+
+fun Vector3d.eulerToDirection(): Vector3d {
+    return Vector3d(Math.sin(y) * Math.cos(x), Math.cos(y) * Math.cos(x), Math.sin(x))
+}
+
+fun Vector3d.directionToEuler(): Vector3d {
+    return Vector3d(Math.asin(z), Math.atan2(y, x), 0.0)
+}
