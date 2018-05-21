@@ -420,7 +420,7 @@ fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = t
 
 fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false, lossy: Boolean = false): Text {
     val text = if (children.isEmpty()) this else {
-        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue, ignoreCase) }).build()
+        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue, ignoreCase, lossy) }).build()
     }
     val plain = if (lossy) toPlain() else toPlainSingle()
     if (!plain.contains(oldValue, ignoreCase)) {
@@ -444,7 +444,7 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false, 
 
 fun Text.replace(oldValue: Regex, newValue: Text, lossy: Boolean = false): Text {
     val text = if (children.isEmpty()) this else {
-        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue) }).build()
+        toBuilder().removeAll().append(children.map { it.replace(oldValue, newValue, lossy) }).build()
     }
     val plain = if (lossy) toPlain() else toPlainSingle()
     if (oldValue in plain) {
