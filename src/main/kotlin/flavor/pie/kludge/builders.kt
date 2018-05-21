@@ -127,7 +127,7 @@ inline fun WorldBorder.newChunkPreGenerate(world: World, fn: ChunkPreGenerate.Bu
 inline fun CommandFlags(vararg args: CommandElement, fn: CommandFlags.Builder.() -> Unit): CommandElement = GenericArguments.flags().apply(fn).buildWith(GenericArguments.seq(*args))
 inline fun CommandSpec(fn: CommandSpec.Builder.() -> Unit): CommandSpec = CommandSpec.builder().apply(fn).build()
 inline fun DamageSource(fn: DamageSource.Builder.() -> Unit): DamageSource = DamageSource.builder().apply(fn).build()
-inline fun <reified M: DataManipulator<M, I>, I: ImmutableDataManipulator<I, M>> DataRegistration(plugin: PluginContainer, fn: DataRegistration.Builder<M, I>.() -> Unit): DataRegistration<M, I> = (DataRegistration.builder() as DataRegistration.Builder<M, I>).apply(fn).buildAndRegister(plugin)
+inline fun <reified M: DataManipulator<M, I>, reified I: ImmutableDataManipulator<I, M>> DataRegistration(plugin: PluginContainer, fn: DataRegistration.Builder<M, I>.() -> Unit): DataRegistration<M, I> = (DataRegistration.builder() as DataRegistration.Builder<M, I>).apply(fn).dataClass(M::class.java).immutableClass(I::class.java).buildAndRegister(plugin)
 inline fun DeadBush(fn: DeadBush.Builder.() -> Unit): DeadBush = DeadBush.builder().apply(fn).build()
 inline fun DesertWell(fn: DesertWell.Builder.() -> Unit): DesertWell = DesertWell.builder().apply(fn).build()
 inline fun DisplayInfo(fn: DisplayInfo.Builder.() -> Unit): DisplayInfo = DisplayInfo.builder().apply(fn).build()
