@@ -269,7 +269,7 @@ fun Vector3d.directionToEuler(up: Vector3d): Vector3d {
     return Vector3d(Math.toDegrees(Math.asin(z)), Math.toDegrees(Math.atan2(y, x)), Math.toDegrees(Math.atan2(w.dot(up) / w.length(), u.dot(up) / u.length())))
 }
 
-fun Transform<*>.getDirection(): Vector3d {
+val Transform<*>.direction: Vector3d get() {
     val y = -Math.sin(Math.toRadians(pitch))
     val xz = Math.cos(Math.toRadians(pitch))
     val x = -xz * Math.sin(Math.toRadians(yaw))
