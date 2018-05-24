@@ -36,6 +36,8 @@ import com.flowpowered.math.vector.Vectord
 import com.flowpowered.math.vector.Vectorf
 import com.flowpowered.math.vector.Vectori
 import com.flowpowered.math.vector.Vectorl
+import org.spongepowered.api.entity.Transform
+import org.spongepowered.api.world.extent.Extent
 
 operator fun Complexd.minus(c: Complexd): Complexd = sub(c)
 operator fun Complexd.times(c: Complexd): Complexd = mul(c)
@@ -253,9 +255,39 @@ operator fun Vectorl.times(a: Long): Vectorl = mul(a)
 operator fun Vectorl.unaryMinus(): Vectorl = negate()
 
 fun Vector3d.eulerToDirection(): Vector3d {
-    return Vector3d(Math.sin(y) * Math.cos(x), Math.cos(y) * Math.cos(x), Math.sin(x))
+    val cosx = Math.cos(Math.toRadians(x))
+    return Vector3d(Math.sin(Math.toRadians(y)) * cosx, Math.cos(Math.toRadians(y)) * cosx, Math.sin(Math.toRadians(x)))
 }
 
 fun Vector3d.directionToEuler(): Vector3d {
-    return Vector3d(Math.asin(z), Math.atan2(y, x), 0.0)
+    return Vector3d(Math.toDegrees(Math.asin(z)), Math.toDegrees(Math.atan2(y, x)), 0.0)
+}
+
+fun Vector3d.directionToEuler(up: Vector3d): Vector3d {
+    val w = Vector3d(-y, x, 0.0)
+    val u = w.cross(this)
+    return Vector3d(Math.toDegrees(Math.asin(z)), Math.toDegrees(Math.atan2(y, x)), Math.toDegrees(Math.atan2(w.dot(up) / w.length(), u.dot(up) / u.length())))
+}
+
+fun Transform<*>.getDirection(): Vector3d {
+    val y = -Math.sin(Math.toRadians(pitch))
+    val xz = Math.cos(Math.toRadians(pitch))
+    val x = -xz * Math.sin(Math.toRadians(yaw))
+    val z = xz * Math.cos(Math.toRadians(yaw))
+    return Vector3d(x, y, z)
+}
+
+fun <T: Extent> Transform<T>.setDirection(direction: Vector3d): Transform<T> {
+    val pi2 = Math.PI * 2
+    val x = direction.x
+    val z = direction.z
+    if (direction.x == 0.0 && direction.z == 0.0) {
+        return setRotation(Vector3d(rotation.x, if (direction.y > 0) -90.0 else 90.0, rotation.z))
+    }
+    val theta = Math.atan2(-x, z)
+    val yaw = Math.toDegrees((theta * pi2) % pi2)
+
+    val xz = Math.sqrt((x * x) + (z * z))
+    val pitch = Math.toDegrees(Math.atan(-direction.y / xz))
+    return setRotation(Vector3d(pitch, yaw, rotation.z))
 }
