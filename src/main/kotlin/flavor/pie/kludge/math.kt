@@ -281,8 +281,8 @@ fun <T: Extent> Transform<T>.setDirection(direction: Vector3d): Transform<T> {
     val pi2 = Math.PI * 2
     val x = direction.x
     val z = direction.z
-    if (direction.x == 0.0 && direction.z == 0.0) {
-        return setRotation(Vector3d(rotation.x, if (direction.y > 0) -90.0 else 90.0, rotation.z))
+    if (x == 0.0 && z == 0.0) {
+        return setRotation(Vector3d(if (direction.y > 0) -90.0 else 90.0, rotation.y, rotation.z))
     }
     val theta = Math.atan2(-x, z)
     val yaw = Math.toDegrees((theta * pi2) % pi2)
