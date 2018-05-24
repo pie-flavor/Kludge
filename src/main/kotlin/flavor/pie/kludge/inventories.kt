@@ -90,3 +90,11 @@ operator fun Inventory2D.set(x: Int, y: Int, stack: ItemStack) {
 operator fun Inventory.set(x: Int, y: Int, stack: ItemStack) {
     (this[x, y] ?: throw IllegalArgumentException()).offer(stack)
 }
+
+operator fun Inventory.set(index: Int, stack: ItemStack) {
+    (this[index] ?: throw IllegalArgumentException()).offer(stack)
+}
+
+operator fun Inventory.invoke(index: Int): ItemStack? = get(index)?.peek().unwrap()
+
+operator fun Inventory.invoke(x: Int, y: Int): ItemStack? = get(x, y)?.peek().unwrap()
