@@ -285,7 +285,7 @@ fun <T: Extent> Transform<T>.setDirection(direction: Vector3d): Transform<T> {
         return setRotation(Vector3d(if (direction.y > 0) -90.0 else 90.0, rotation.y, rotation.z))
     }
     val theta = Math.atan2(-x, z)
-    val yaw = Math.toDegrees((theta * pi2) % pi2)
+    val yaw = Math.toDegrees((theta + pi2) % pi2)
 
     val xz = Math.sqrt((x * x) + (z * z))
     val pitch = Math.toDegrees(Math.atan(-direction.y / xz))
