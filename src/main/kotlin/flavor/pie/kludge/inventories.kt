@@ -8,7 +8,6 @@ import org.spongepowered.api.item.inventory.Slot
 import org.spongepowered.api.item.inventory.property.SlotIndex
 import org.spongepowered.api.item.inventory.property.SlotPos
 import org.spongepowered.api.item.inventory.query.QueryOperation
-import org.spongepowered.api.item.inventory.query.QueryOperationType
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes
 import org.spongepowered.api.item.inventory.type.Inventory2D
 import org.spongepowered.api.item.inventory.type.OrderedInventory
@@ -67,24 +66,24 @@ operator fun Inventory.invoke(): ItemStack? = peek().unwrap()
 
 val Inventory.slots: Iterable<Slot> get() = slots()
 
-operator fun Inventory.get(index: Int): Slot? = this[SlotIndex(index)] as? Slot
+operator fun Inventory.get(index: Int): Slot? = this[SlotIndex.of(index)] as? Slot
 
-operator fun OrderedInventory.get(index: Int): Slot? = getSlot(SlotIndex(index)).unwrap()
+operator fun OrderedInventory.get(index: Int): Slot? = getSlot(SlotIndex.of(index)).unwrap()
 
-operator fun OrderedInventory.invoke(index: Int): ItemStack? = peek(SlotIndex(index)).unwrap()
+operator fun OrderedInventory.invoke(index: Int): ItemStack? = peek(SlotIndex.of(index)).unwrap()
 
 operator fun OrderedInventory.set(index: Int, stack: ItemStack) {
-    set(SlotIndex(index), stack)
+    set(SlotIndex.of(index), stack)
 }
 
-operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos(x, y)] as? Slot
+operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos.of(x, y)] as? Slot
 
-operator fun Inventory2D.get(x: Int, y: Int): Slot? = getSlot(SlotPos(x, y)).unwrap()
+operator fun Inventory2D.get(x: Int, y: Int): Slot? = getSlot(SlotPos.of(x, y)).unwrap()
 
-operator fun Inventory2D.invoke(x: Int, y: Int): ItemStack? = peek(SlotPos(x, y)).unwrap()
+operator fun Inventory2D.invoke(x: Int, y: Int): ItemStack? = peek(SlotPos.of(x, y)).unwrap()
 
 operator fun Inventory2D.set(x: Int, y: Int, stack: ItemStack) {
-    set(SlotPos(x, y), stack)
+    set(SlotPos.of(x, y), stack)
 }
 
 operator fun Inventory.set(x: Int, y: Int, stack: ItemStack) {
