@@ -66,7 +66,7 @@ operator fun Inventory.invoke(): ItemStack? = peek().unwrap()
 
 val Inventory.slots: Iterable<Slot> get() = slots()
 
-operator fun Inventory.get(index: Int): Slot? = this[SlotIndex.of(index)] as? Slot
+operator fun Inventory.get(index: Int): Slot? = this[SlotIndex.of(index)].let { it as? Slot ?: it.slots.firstOrNull() }
 
 operator fun OrderedInventory.get(index: Int): Slot? = getSlot(SlotIndex.of(index)).unwrap()
 
@@ -76,7 +76,7 @@ operator fun OrderedInventory.set(index: Int, stack: ItemStack) {
     set(SlotIndex.of(index), stack)
 }
 
-operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos.of(x, y)] as? Slot
+operator fun Inventory.get(x: Int, y: Int): Slot? = this[SlotPos.of(x, y)].let { it as? Slot ?: it.slots.firstOrNull() }
 
 operator fun Inventory2D.get(x: Int, y: Int): Slot? = getSlot(SlotPos.of(x, y)).unwrap()
 
