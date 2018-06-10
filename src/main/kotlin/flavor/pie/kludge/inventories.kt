@@ -57,7 +57,7 @@ operator fun Inventory.get(vararg args: Any): Inventory =
             is InventoryProperty<*, *> -> QueryOperationTypes.INVENTORY_PROPERTY.of(it)
             is Translation -> QueryOperationTypes.INVENTORY_TRANSLATION.of(it)
             is Function1<*, *> -> QueryOperationTypes.ITEM_STACK_CUSTOM.of(Predicate(it as (ItemStack) -> Boolean))
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException("args is not one of: KClass, ItemType, ItemStack, InventoryProperty, Translation, Function1")
         } }.toTypedArray())
 
 operator fun Inventory.invoke(vararg stacks: ItemStack): Inventory =
@@ -88,11 +88,11 @@ operator fun Inventory2D.set(x: Int, y: Int, stack: ItemStack) {
 }
 
 operator fun Inventory.set(x: Int, y: Int, stack: ItemStack) {
-    (this[x, y] ?: throw IllegalArgumentException()).offer(stack)
+    (this[x, y] ?: throw IllegalArgumentException("Invalid position")).offer(stack)
 }
 
 operator fun Inventory.set(index: Int, stack: ItemStack) {
-    (this[index] ?: throw IllegalArgumentException()).offer(stack)
+    (this[index] ?: throw IllegalArgumentException("Invalid index")).offer(stack)
 }
 
 operator fun Inventory.invoke(index: Int): ItemStack? = get(index)?.peek().unwrap()
