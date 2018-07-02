@@ -12,6 +12,7 @@ import org.spongepowered.api.block.BlockSnapshot
 import org.spongepowered.api.block.BlockState
 import org.spongepowered.api.block.tileentity.TileEntityArchetype
 import org.spongepowered.api.boss.ServerBossBar
+import org.spongepowered.api.command.CommandResult
 import org.spongepowered.api.command.args.CommandElement
 import org.spongepowered.api.command.args.CommandFlags
 import org.spongepowered.api.command.args.GenericArguments
@@ -125,6 +126,7 @@ inline fun cactusOf(fn: Cactus.Builder.() -> Unit): Cactus = Cactus.builder().ap
 inline fun chorusFlowerOf(fn: ChorusFlower.Builder.() -> Unit): ChorusFlower = ChorusFlower.builder().apply(fn).build()
 inline fun WorldBorder.newChunkPreGenerate(world: World, fn: ChunkPreGenerate.Builder.() -> Unit): ChunkPreGenerate = this.newChunkPreGenerate(world).apply(fn).start()
 inline fun commandFlagsOf(vararg args: CommandElement, fn: CommandFlags.Builder.() -> Unit): CommandElement = GenericArguments.flags().apply(fn).buildWith(GenericArguments.seq(*args))
+inline fun commandResultOf(fn: CommandResult.Builder.() -> Unit): CommandResult = CommandResult.builder().apply(fn).build()
 inline fun commandSpecOf(fn: CommandSpec.Builder.() -> Unit): CommandSpec = CommandSpec.builder().apply(fn).build()
 inline fun damageSourceOf(fn: DamageSource.Builder.() -> Unit): DamageSource = DamageSource.builder().apply(fn).build()
 inline fun <reified M: DataManipulator<M, I>, reified I: ImmutableDataManipulator<I, M>> dataRegistrationOf(plugin: PluginContainer, fn: DataRegistration.Builder<M, I>.() -> Unit): DataRegistration<M, I> = (DataRegistration.builder() as DataRegistration.Builder<M, I>).apply(fn).dataClass(M::class.java).immutableClass(I::class.java).buildAndRegister(plugin)
