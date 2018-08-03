@@ -1,6 +1,10 @@
 package flavor.pie.kludge
 
+import org.spongepowered.api.data.key.Keys
+import org.spongepowered.api.entity.EntityTypes
 import org.spongepowered.api.entity.living.player.Player
+import org.spongepowered.api.item.inventory.ItemStack
+import org.spongepowered.api.item.inventory.ItemStackSnapshot
 import org.spongepowered.api.item.inventory.entity.MainPlayerInventory
 import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.TextElement
@@ -55,3 +59,20 @@ fun MessageReceiver.sendMessage(type: ChatType, vararg messages: Text): Boolean 
             sendMessages(*messages)
             false
         }
+
+fun Player.give(item: ItemStack): List<ItemStackSnapshot> {
+    val res = storageInventory.offer(item)
+    val ret = mutableListOf<ItemStackSnapshot>()
+    for (rejected in res.rejectedItems) {
+        try {
+            val entity = world.createEntity(EntityTypes.ITEM, location.position)
+            entity[Keys.REPRESENTED_ITEM] = rejected
+            if (!world.spawnEntity(entity)) {
+                ret += rejected
+            }
+        } catch (e: Exception) {
+            ret += rejected
+        }
+    }
+    return ret
+}
