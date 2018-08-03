@@ -8,6 +8,7 @@ class Service<out T : Any>(private val clazz: KClass<T>) {
         inline operator fun <reified T: Any> getValue(thisRef: Any?, property: KProperty<*>): T? {
             return !ServiceManager.provide(T::class.java)
         }
+        inline operator fun <reified T: Any> invoke(): Service<T> = Service(T::class)
     }
 
     private var t: T? = null
@@ -25,6 +26,7 @@ class UncheckedService<out T : Any>(private val clazz: KClass<T>) {
         inline operator fun <reified T: Any> getValue(thisRef: Any?, property: KProperty<*>): T {
             return ServiceManager.provideUnchecked(T::class.java)
         }
+        inline operator fun <reified T: Any> invoke(): UncheckedService<T> = UncheckedService(T::class)
     }
 
     private var t: T? = null
@@ -37,12 +39,12 @@ class UncheckedService<out T : Any>(private val clazz: KClass<T>) {
     }
 }
 
-object CachedService {
-    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): Service<T>
-            = Service(T::class)
-}
-
-object CachedUncheckedService {
-    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): UncheckedService<T>
-            = UncheckedService(T::class)
-}
+//object CachedService {
+//    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): Service<T>
+//            = Service(T::class)
+//}
+//
+//object CachedUncheckedService {
+//    inline operator fun <reified T: Any> provideDelegate(thisRef: Any?, property: KProperty<*>): UncheckedService<T>
+//            = UncheckedService(T::class)
+//}
