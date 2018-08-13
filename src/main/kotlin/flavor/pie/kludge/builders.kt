@@ -126,6 +126,7 @@ inline fun cactusOf(fn: Cactus.Builder.() -> Unit): Cactus = Cactus.builder().ap
 inline fun chorusFlowerOf(fn: ChorusFlower.Builder.() -> Unit): ChorusFlower = ChorusFlower.builder().apply(fn).build()
 inline fun WorldBorder.newChunkPreGenerate(world: World, fn: ChunkPreGenerate.Builder.() -> Unit): ChunkPreGenerate = this.newChunkPreGenerate(world).apply(fn).start()
 inline fun commandFlagsOf(vararg args: CommandElement, fn: CommandFlags.Builder.() -> Unit): CommandElement = GenericArguments.flags().apply(fn).buildWith(GenericArguments.seq(*args))
+inline fun commandFlagsOf(fn: CommandFlags.Builder.() -> Unit): CommandElement = GenericArguments.flags().apply(fn).build()
 inline fun commandResultOf(fn: CommandResult.Builder.() -> Unit): CommandResult = CommandResult.builder().apply(fn).build()
 inline fun commandSpecOf(fn: CommandSpec.Builder.() -> Unit): CommandSpec = CommandSpec.builder().apply(fn).build()
 inline fun damageSourceOf(fn: DamageSource.Builder.() -> Unit): DamageSource = DamageSource.builder().apply(fn).build()
