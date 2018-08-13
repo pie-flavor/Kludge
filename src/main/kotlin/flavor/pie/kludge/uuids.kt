@@ -11,3 +11,4 @@ fun UUID.player(): Player? = !Server.getPlayer(this)
 internal val service: UserStorageService? by Service
 fun UUID.user(): User? = !service?.get(this)
 fun UUID.profile(): CompletableFuture<GameProfile> = GameProfileManager.get(this)
+fun String.toUUID(): UUID = UUID.fromString(this)
