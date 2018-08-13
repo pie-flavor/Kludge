@@ -40,3 +40,17 @@ fun async(plugin: Any, fn: () -> Unit) {
 fun async(fn: () -> Unit) {
     Task.builder().async().execute(fn).submit(plugin)
 }
+
+/**
+ * Runs [fn] after [ticks] ticks.
+ */
+fun delay(plugin: Any, ticks: Long, fn: () -> Unit) {
+    Task.builder().delayTicks(ticks).execute(fn).submit(plugin)
+}
+
+/**
+ * Runs [fn] after [ticks] ticks. Requires [plugin] to have been set.
+ */
+fun delay(ticks: Long, fn: () -> Unit) {
+    Task.builder().delayTicks(ticks).execute(fn).submit(plugin)
+}
