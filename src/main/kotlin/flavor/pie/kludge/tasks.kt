@@ -11,6 +11,18 @@ fun sync(plugin: Any, fn: () -> Unit) {
     }
 }
 
+fun sync(fn: () -> Unit) {
+    if (Sponge.isServerAvailable() && Server.isMainThread) {
+        fn()
+    } else {
+        Task.builder().execute(fn).submit(plugin)
+    }
+}
+
 fun async(plugin: Any, fn: () -> Unit) {
+    Task.builder().async().execute(fn).submit(plugin)
+}
+
+fun async(fn: () -> Unit) {
     Task.builder().async().execute(fn).submit(plugin)
 }
