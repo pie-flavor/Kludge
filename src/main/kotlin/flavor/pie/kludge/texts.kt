@@ -2974,3 +2974,269 @@ fun Text.replace(oldValue: Regex, newValue: Text, lossy: Boolean = false): Text 
 //}
 //
 //internal val namedGroupRegex = """\$([a-zA-Z]\w*?)""".toRegex()
+
+fun <T> Iterable<T>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                               limit: Int = -1, truncated: Text = !"...", transform: ((T) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(when {
+                transform != null -> transform(element)
+                element is Char -> !element
+                element is String -> !element
+                element is TextRepresentable -> !element
+                element is Score -> !element
+                element is Translatable -> !element
+                element is Translation -> !element
+                element is Selector -> !element
+                else -> !element.toString()
+            })
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun <T> Array<T>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                            limit: Int = -1, truncated: Text = !"...", transform: ((T) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(when {
+                transform != null -> transform(element)
+                element is Char -> !element
+                element is String -> !element
+                element is TextRepresentable -> !element
+                element is Score -> !element
+                element is Translatable -> !element
+                element is Translation -> !element
+                element is Selector -> !element
+                else -> !element.toString()
+            })
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun ByteArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Byte) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun CharArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Char) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun IntArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Int) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun LongArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Long) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun ShortArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Short) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun FloatArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Float) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun DoubleArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Double) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun BooleanArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                         limit: Int = -1, truncated: Text = !"...", transform: ((Boolean) -> Text)? = null): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit < 0 || count <= limit) {
+            builder.append(
+                    if (transform != null) {
+                        transform(element)
+                    }
+                    else {
+                        !element.toString()
+                    }
+            )
+        }
+    }
+    if (limit in 0..(count - 1)) {
+        builder.append(truncated)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
