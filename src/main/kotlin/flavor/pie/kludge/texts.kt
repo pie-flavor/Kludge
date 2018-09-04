@@ -28,7 +28,6 @@ import org.spongepowered.api.text.translation.Translatable
 import org.spongepowered.api.text.translation.Translation
 import java.net.URL
 import java.util.UUID
-import java.util.function.Consumer
 
 /**
  * @see TextRepresentable.toText
@@ -232,7 +231,7 @@ fun String.onClick(command: String): LiteralText = this.onClick(TextActions.runC
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun String.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+fun String.onClick(callback: (CommandSource) -> Unit): LiteralText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -495,7 +494,7 @@ fun Char.onClick(command: String): LiteralText = this.onClick(TextActions.runCom
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Char.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+fun Char.onClick(callback: (CommandSource) -> Unit): LiteralText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -747,7 +746,7 @@ fun Translatable.onClick(command: String): TranslatableText = this.onClick(TextA
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Translatable.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+fun Translatable.onClick(callback: (CommandSource) -> Unit): TranslatableText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -1000,7 +999,7 @@ fun Translation.onClick(command: String): TranslatableText = this.onClick(TextAc
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Translation.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+fun Translation.onClick(callback: (CommandSource) -> Unit): TranslatableText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -1253,7 +1252,7 @@ fun Score.onClick(command: String): ScoreText = this.onClick(TextActions.runComm
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Score.onClick(callback: Consumer<CommandSource>): ScoreText = this.onClick(TextActions.executeCallback(callback))
+fun Score.onClick(callback: (CommandSource) -> Unit): ScoreText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -1506,7 +1505,7 @@ fun Selector.onClick(command: String): SelectorText = this.onClick(TextActions.r
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Selector.onClick(callback: Consumer<CommandSource>): SelectorText = this.onClick(TextActions.executeCallback(callback))
+fun Selector.onClick(callback: (CommandSource) -> Unit): SelectorText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -1859,7 +1858,7 @@ fun Text.onClick(command: String): Text = this.onClick(TextActions.runCommand(co
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun Text.onClick(callback: Consumer<CommandSource>): Text = this.onClick(TextActions.executeCallback(callback))
+fun Text.onClick(callback: (CommandSource) -> Unit): Text = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -2096,7 +2095,7 @@ fun LiteralText.onClick(command: String): LiteralText = this.onClick(TextActions
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun LiteralText.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+fun LiteralText.onClick(callback: (CommandSource) -> Unit): LiteralText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -2332,7 +2331,7 @@ fun TranslatableText.onClick(command: String): TranslatableText = this.onClick(T
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun TranslatableText.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+fun TranslatableText.onClick(callback: (CommandSource) -> Unit): TranslatableText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -2568,7 +2567,7 @@ fun SelectorText.onClick(command: String): SelectorText = this.onClick(TextActio
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun SelectorText.onClick(callback: Consumer<CommandSource>): SelectorText = this.onClick(TextActions.executeCallback(callback))
+fun SelectorText.onClick(callback: (CommandSource) -> Unit): SelectorText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
@@ -2804,7 +2803,7 @@ fun ScoreText.onClick(command: String): ScoreText = this.onClick(TextActions.run
  * Sets the click action of this text to [TextActions.executeCallback].
  * @see Text.Builder.onClick
  */
-fun ScoreText.onClick(callback: Consumer<CommandSource>): ScoreText = this.onClick(TextActions.executeCallback(callback))
+fun ScoreText.onClick(callback: (CommandSource) -> Unit): ScoreText = this.onClick(TextActions.executeCallback(callback))
 
 /**
  * Sets the click action of this text to [TextActions.changePage].
