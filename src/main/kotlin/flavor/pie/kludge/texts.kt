@@ -1,5 +1,10 @@
 package flavor.pie.kludge
 
+import org.spongepowered.api.command.CommandSource
+import org.spongepowered.api.data.key.Keys
+import org.spongepowered.api.entity.Entity
+import org.spongepowered.api.entity.EntityType
+import org.spongepowered.api.item.inventory.ItemStackSnapshot
 import org.spongepowered.api.scoreboard.Score
 import org.spongepowered.api.text.LiteralText
 import org.spongepowered.api.text.ScoreText
@@ -10,6 +15,7 @@ import org.spongepowered.api.text.TranslatableText
 import org.spongepowered.api.text.action.ClickAction
 import org.spongepowered.api.text.action.HoverAction
 import org.spongepowered.api.text.action.ShiftClickAction
+import org.spongepowered.api.text.action.TextActions
 import org.spongepowered.api.text.format.TextColor
 import org.spongepowered.api.text.format.TextColors
 import org.spongepowered.api.text.format.TextFormat
@@ -20,6 +26,9 @@ import org.spongepowered.api.text.serializer.TextSerializer
 import org.spongepowered.api.text.serializer.TextSerializers
 import org.spongepowered.api.text.translation.Translatable
 import org.spongepowered.api.text.translation.Translation
+import java.net.URL
+import java.util.UUID
+import java.util.function.Consumer
 
 /**
  * @see TextRepresentable.toText
@@ -206,6 +215,74 @@ fun String.onHover(hoverAction: HoverAction<*>): LiteralText = Text.builder(this
  * @see Text.Builder.onShiftClick
  */
 fun String.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun String.onClick(url: URL): LiteralText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun String.onClick(command: String): LiteralText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun String.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun String.onClick(page: Int): LiteralText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(text: Text): LiteralText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(item: ItemStackSnapshot): LiteralText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(entity: Entity): LiteralText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(entity: Entity, name: String): LiteralText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(entity: UUID, name: String, type: EntityType?): LiteralText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun String.onHover(entity: HoverAction.ShowEntity.Ref): LiteralText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun String.onShiftClick(text: String): LiteralText = this.onShiftClick(TextActions.insertText(text))
 
 /**
  * Deserializes this text using [TextSerializers.JSON].
@@ -402,6 +479,73 @@ fun Char.onHover(hoverAction: HoverAction<*>): LiteralText = Text.builder(this).
  */
 fun Char.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = Text.builder(this).onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Char.onClick(url: URL): LiteralText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Char.onClick(command: String): LiteralText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Char.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Char.onClick(page: Int): LiteralText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(text: Text): LiteralText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(item: ItemStackSnapshot): LiteralText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(entity: Entity): LiteralText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(entity: Entity, name: String): LiteralText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(entity: UUID, name: String, type: EntityType?): LiteralText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Char.onHover(entity: HoverAction.ShowEntity.Ref): LiteralText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Char.onShiftClick(text: String): LiteralText = this.onShiftClick(TextActions.insertText(text))
 
 /**
  * @see Text.of
@@ -586,6 +730,74 @@ fun Translatable.onHover(hoverAction: HoverAction<*>): TranslatableText = Text.b
  * @see Text.Builder.onShiftClick
  */
 fun Translatable.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Translatable.onClick(url: URL): TranslatableText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Translatable.onClick(command: String): TranslatableText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Translatable.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Translatable.onClick(page: Int): TranslatableText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(text: Text): TranslatableText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(item: ItemStackSnapshot): TranslatableText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(entity: Entity): TranslatableText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(entity: Entity, name: String): TranslatableText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(entity: UUID, name: String, type: EntityType?): TranslatableText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translatable.onHover(entity: HoverAction.ShowEntity.Ref): TranslatableText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Translatable.onShiftClick(text: String): TranslatableText = this.onShiftClick(TextActions.insertText(text))
 
 
 /**
@@ -772,6 +984,74 @@ fun Translation.onHover(hoverAction: HoverAction<*>): TranslatableText = Text.bu
  */
 fun Translation.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = Text.builder(this).onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Translation.onClick(url: URL): TranslatableText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Translation.onClick(command: String): TranslatableText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Translation.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Translation.onClick(page: Int): TranslatableText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(text: Text): TranslatableText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(item: ItemStackSnapshot): TranslatableText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(entity: Entity): TranslatableText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(entity: Entity, name: String): TranslatableText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(entity: UUID, name: String, type: EntityType?): TranslatableText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Translation.onHover(entity: HoverAction.ShowEntity.Ref): TranslatableText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Translation.onShiftClick(text: String): TranslatableText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * @see Text.of
@@ -957,6 +1237,74 @@ fun Score.onHover(hoverAction: HoverAction<*>): ScoreText = Text.builder(this).o
  */
 fun Score.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = Text.builder(this).onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Score.onClick(url: URL): ScoreText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Score.onClick(command: String): ScoreText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Score.onClick(callback: Consumer<CommandSource>): ScoreText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Score.onClick(page: Int): ScoreText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(text: Text): ScoreText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(item: ItemStackSnapshot): ScoreText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(entity: Entity): ScoreText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(entity: Entity, name: String): ScoreText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(entity: UUID, name: String, type: EntityType?): ScoreText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Score.onHover(entity: HoverAction.ShowEntity.Ref): ScoreText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Score.onShiftClick(text: String): ScoreText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * @see Text.of
@@ -1141,6 +1489,75 @@ fun Selector.onHover(hoverAction: HoverAction<*>): SelectorText = Text.builder(t
  * @see Text.Builder.onShiftClick
  */
 fun Selector.onShiftClick(shiftClickAction: ShiftClickAction<*>): SelectorText = Text.builder(this).onShiftClick(shiftClickAction).build()
+
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Selector.onClick(url: URL): SelectorText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Selector.onClick(command: String): SelectorText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Selector.onClick(callback: Consumer<CommandSource>): SelectorText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Selector.onClick(page: Int): SelectorText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(text: Text): SelectorText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(item: ItemStackSnapshot): SelectorText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(entity: Entity): SelectorText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(entity: Entity, name: String): SelectorText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(entity: UUID, name: String, type: EntityType?): SelectorText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Selector.onHover(entity: HoverAction.ShowEntity.Ref): SelectorText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Selector.onShiftClick(text: String): SelectorText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * @see Text.of
@@ -1426,6 +1843,75 @@ fun Text.onHover(hoverAction: HoverAction<*>): Text = toBuilder().onHover(hoverA
  */
 fun Text.onShiftClick(shiftClickAction: ShiftClickAction<*>): Text = toBuilder().onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun Text.onClick(url: URL): Text = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun Text.onClick(command: String): Text = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun Text.onClick(callback: Consumer<CommandSource>): Text = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun Text.onClick(page: Int): Text = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(text: Text): Text = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(item: ItemStackSnapshot): Text = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(entity: Entity): Text = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(entity: Entity, name: String): Text = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(entity: UUID, name: String, type: EntityType?): Text =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun Text.onHover(entity: HoverAction.ShowEntity.Ref): Text = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun Text.onShiftClick(text: String): Text = this.onShiftClick(TextActions.insertText(text))
+
+
 
 /**
  * @see Text.Builder.color
@@ -1593,6 +2079,74 @@ fun LiteralText.onHover(hoverAction: HoverAction<*>): LiteralText = toBuilder().
  * @see Text.Builder.onShiftClick
  */
 fun LiteralText.onShiftClick(shiftClickAction: ShiftClickAction<*>): LiteralText = toBuilder().onShiftClick(shiftClickAction).build()
+
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun LiteralText.onClick(url: URL): LiteralText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun LiteralText.onClick(command: String): LiteralText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun LiteralText.onClick(callback: Consumer<CommandSource>): LiteralText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun LiteralText.onClick(page: Int): LiteralText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(text: Text): LiteralText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(item: ItemStackSnapshot): LiteralText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(entity: Entity): LiteralText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(entity: Entity, name: String): LiteralText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(entity: UUID, name: String, type: EntityType?): LiteralText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun LiteralText.onHover(entity: HoverAction.ShowEntity.Ref): LiteralText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun LiteralText.onShiftClick(text: String): LiteralText = this.onShiftClick(TextActions.insertText(text))
 
 
 /**
@@ -1762,6 +2316,74 @@ fun TranslatableText.onHover(hoverAction: HoverAction<*>): TranslatableText = to
  */
 fun TranslatableText.onShiftClick(shiftClickAction: ShiftClickAction<*>): TranslatableText = toBuilder().onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun TranslatableText.onClick(url: URL): TranslatableText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun TranslatableText.onClick(command: String): TranslatableText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun TranslatableText.onClick(callback: Consumer<CommandSource>): TranslatableText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun TranslatableText.onClick(page: Int): TranslatableText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(text: Text): TranslatableText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(item: ItemStackSnapshot): TranslatableText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(entity: Entity): TranslatableText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(entity: Entity, name: String): TranslatableText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(entity: UUID, name: String, type: EntityType?): TranslatableText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun TranslatableText.onHover(entity: HoverAction.ShowEntity.Ref): TranslatableText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun TranslatableText.onShiftClick(text: String): TranslatableText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * @see Text.Builder.color
@@ -1930,6 +2552,74 @@ fun SelectorText.onHover(hoverAction: HoverAction<*>): SelectorText = toBuilder(
  */
 fun SelectorText.onShiftClick(shiftClickAction: ShiftClickAction<*>): SelectorText = toBuilder().onShiftClick(shiftClickAction).build()
 
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun SelectorText.onClick(url: URL): SelectorText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun SelectorText.onClick(command: String): SelectorText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun SelectorText.onClick(callback: Consumer<CommandSource>): SelectorText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun SelectorText.onClick(page: Int): SelectorText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(text: Text): SelectorText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(item: ItemStackSnapshot): SelectorText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(entity: Entity): SelectorText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(entity: Entity, name: String): SelectorText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(entity: UUID, name: String, type: EntityType?): SelectorText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun SelectorText.onHover(entity: HoverAction.ShowEntity.Ref): SelectorText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun SelectorText.onShiftClick(text: String): SelectorText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * @see Text.Builder.color
@@ -2097,6 +2787,75 @@ fun ScoreText.onHover(hoverAction: HoverAction<*>): ScoreText = toBuilder().onHo
  * @see Text.Builder.onShiftClick
  */
 fun ScoreText.onShiftClick(shiftClickAction: ShiftClickAction<*>): ScoreText = toBuilder().onShiftClick(shiftClickAction).build()
+
+/**
+ * Sets the click action of this text to [TextActions.openUrl].
+ * @see Text.Builder.onClick
+ */
+fun ScoreText.onClick(url: URL): ScoreText = this.onClick(TextActions.openUrl(url))
+
+/**
+ * Sets the click action of this text to [TextActions.runCommand].
+ * @see Text.Builder.onClick
+ */
+fun ScoreText.onClick(command: String): ScoreText = this.onClick(TextActions.runCommand(command))
+
+/**
+ * Sets the click action of this text to [TextActions.executeCallback].
+ * @see Text.Builder.onClick
+ */
+fun ScoreText.onClick(callback: Consumer<CommandSource>): ScoreText = this.onClick(TextActions.executeCallback(callback))
+
+/**
+ * Sets the click action of this text to [TextActions.changePage].
+ * @see Text.Builder.onClick
+ */
+fun ScoreText.onClick(page: Int): ScoreText = this.onClick(TextActions.changePage(page))
+
+/**
+ * Sets the hover action of this text to [TextActions.showText].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(text: Text): ScoreText = this.onHover(TextActions.showText(text))
+
+/**
+ * Sets the hover action of this text to [TextActions.showItem].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(item: ItemStackSnapshot): ScoreText = this.onHover(TextActions.showItem(item))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(entity: Entity): ScoreText = this.onHover(TextActions.showEntity(entity,
+        entity[Keys.DISPLAY_NAME].unwrap()?.toPlain() ?: entity.type.name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(entity: Entity, name: String): ScoreText = this.onHover(TextActions.showEntity(entity, name))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(entity: UUID, name: String, type: EntityType?): ScoreText =
+        this.onHover(TextActions.showEntity(entity, name, type))
+
+/**
+ * Sets the hover action of this text to [TextActions.showEntity].
+ * @see Text.Builder.onHover
+ */
+fun ScoreText.onHover(entity: HoverAction.ShowEntity.Ref): ScoreText = this.onHover(TextActions.showEntity(entity))
+
+/**
+ * Sets the hover action of this text to [TextActions.insertText].
+ * @see Text.Builder.onShiftClick
+ */
+fun ScoreText.onShiftClick(text: String): ScoreText = this.onShiftClick(TextActions.insertText(text))
+
 
 /**
  * Replaces [oldValue] with [newValue] in this text. If lossy mode is enabled,
