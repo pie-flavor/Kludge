@@ -9,7 +9,6 @@ import kotlin.coroutines.experimental.EmptyCoroutineContext
 import kotlin.coroutines.experimental.startCoroutine
 import kotlin.coroutines.experimental.suspendCoroutine
 
-
 fun taskCoroutine(fn: suspend TaskCoroutineContext.() -> Unit) {
     fn.startCoroutine(TaskCoroutineContext, TaskContinuation)
 }
@@ -27,7 +26,7 @@ object TaskCoroutineContext {
             return
         } else {
             suspendCoroutine<Unit> { cont ->
-                Task.builder().execute { _ ->
+                Task.builder().execute { ->
                     cont.resume(Unit)
                 }.submit(plugin)
             }
