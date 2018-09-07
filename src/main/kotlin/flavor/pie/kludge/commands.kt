@@ -154,6 +154,16 @@ class WrapperGenericArguments {
                     choicesInUsage: Boolean): CommandElement =
                 GenericArguments.choices(key, choices, values, choicesInUsage)
         /**
+         * @see GenericArguments.choices
+         */
+        fun choices(key: Text, choices: Map<String, *>, choicesInUsage: Boolean, caseSensitive: Boolean): CommandElement
+            = GenericArguments.choices(key, choices, choicesInUsage, caseSensitive)
+        /**
+         * @see GenericArguments.choicesInsensitive
+         */
+        fun choicesInsensitive(key: Text, choices: Map<String, *>): CommandElement =
+                GenericArguments.choicesInsensitive(key, choices)
+        /**
          * @see GenericArguments.dataContainer
          */
         fun dataContainer(key: Text): CommandElement = GenericArguments.dataContainer(key)

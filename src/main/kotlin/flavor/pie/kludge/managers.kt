@@ -23,6 +23,7 @@ import org.spongepowered.api.plugin.PluginManager
 import org.spongepowered.api.profile.GameProfileManager
 import org.spongepowered.api.scheduler.Scheduler
 import org.spongepowered.api.service.ServiceManager
+import org.spongepowered.api.util.metric.MetricsConfigManager
 import org.spongepowered.api.world.TeleportHelper
 
 /**
@@ -109,3 +110,7 @@ inline val CraftingRecipeRegistry: CraftingRecipeRegistry get() = Sponge.getRegi
  * Shorthand for [GameRegistry.getSmeltingRecipeRegistry].
  */
 inline val SmeltingRecipeRegistry: SmeltingRecipeRegistry get() = Sponge.getRegistry().smeltingRecipeRegistry
+/**
+ * Shorthand for [Sponge.getMetricsConfigManager].
+ */
+inline val MetricsConfigManager: MetricsConfigManager get() = Sponge.getMetricsConfigManager()
