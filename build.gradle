@@ -1,39 +1,53 @@
 buildscript {
-    ext.kotlin_version = '1.2.60'
+    ext.kotlin_version = '1.3-M2'
 
     repositories {
         mavenCentral()
+        maven {
+            url 'http://dl.bintray.com/kotlin/kotlin-eap'
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3-M2'
+}
+
 group 'flavor.pie'
 version '1.0-SNAPSHOT'
-
-apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
     maven {
         url 'https://repo.spongepowered.org/maven/'
     }
+    maven {
+        url 'http://dl.bintray.com/kotlin/kotlin-eap'
+    }
 }
 
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compileOnly 'org.spongepowered:spongeapi:7.1.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 }
 
 kotlin {
     experimental {
         coroutines "enable"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
