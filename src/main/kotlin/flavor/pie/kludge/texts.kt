@@ -3004,6 +3004,24 @@ fun <T> Iterable<T>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPT
     return builder.build()
 }
 
+fun Iterable<Text>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                              limit: Int = -1, truncated: Text = !"..."): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
+        }
+        builder.append(element)
+    }
+    builder.append(postfix)
+    return builder.build()
+}
+
 fun <T> Array<T>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
                             limit: Int = -1, truncated: Text = !"...", transform: ((T) -> Text)? = null): Text {
     val builder = Text.builder().append(prefix)
@@ -3012,22 +3030,39 @@ fun <T> Array<T>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, 
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(when {
-                transform != null -> transform(element)
-                element is Char -> !element
-                element is String -> !element
-                element is TextRepresentable -> !element
-                element is Score -> !element
-                element is Translatable -> !element
-                element is Translation -> !element
-                element is Selector -> !element
-                else -> !element.toString()
-            })
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
+        builder.append(when {
+            transform != null -> transform(element)
+            element is Char -> !element
+            element is String -> !element
+            element is TextRepresentable -> !element
+            element is Score -> !element
+            element is Translatable -> !element
+            element is Translation -> !element
+            element is Selector -> !element
+            else -> !element.toString()
+        })
     }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+    builder.append(postfix)
+    return builder.build()
+}
+
+fun Array<Text>.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, postfix: Text = Text.EMPTY,
+                           limit: Int = -1, truncated: Text = !"..."): Text {
+    val builder = Text.builder().append(prefix)
+    var count = 0
+    for (element in this) {
+        if (++count > 1) {
+            builder.append(separator)
+        }
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
+        }
+        builder.append(element)
     }
     builder.append(postfix)
     return builder.build()
@@ -3041,19 +3076,17 @@ fun ByteArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, pos
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3067,19 +3100,18 @@ fun CharArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, pos
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3093,19 +3125,18 @@ fun IntArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, post
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3119,19 +3150,18 @@ fun LongArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, pos
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3145,19 +3175,18 @@ fun ShortArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, po
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3171,19 +3200,18 @@ fun FloatArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, po
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3197,19 +3225,18 @@ fun DoubleArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, p
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
@@ -3223,19 +3250,18 @@ fun BooleanArray.joinToText(separator: Text = !", ", prefix: Text = Text.EMPTY, 
         if (++count > 1) {
             builder.append(separator)
         }
-        if (limit < 0 || count <= limit) {
-            builder.append(
-                    if (transform != null) {
-                        transform(element)
-                    }
-                    else {
-                        !element.toString()
-                    }
-            )
+        if (limit in 0..(count - 1)) {
+            builder.append(truncated)
+            break
         }
-    }
-    if (limit in 0..(count - 1)) {
-        builder.append(truncated)
+        builder.append(
+            if (transform != null) {
+                transform(element)
+            }
+            else {
+                !element.toString()
+            }
+        )
     }
     builder.append(postfix)
     return builder.build()
