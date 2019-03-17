@@ -204,3 +204,8 @@ operator fun Inventory.invoke(index: Int): ItemStack? = get(index)?.peek().unwra
  * @see Inventory.peek
  */
 operator fun Inventory.invoke(x: Int, y: Int): ItemStack? = get(x, y)?.peek().unwrap()
+
+/**
+ * @see Inventory.union
+ */
+operator fun Inventory.plus(inv: Inventory): Inventory = union(inv)
