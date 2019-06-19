@@ -17,6 +17,7 @@ import org.spongepowered.api.text.serializer.TextSerializers
 import java.util.function.Supplier
 import java.util.function.Function
 import java.util.function.Predicate
+import kotlin.reflect.KProperty
 
 /**
  * Converts a function type into a [CommandExecutor].
@@ -40,6 +41,14 @@ fun CommandSpec.Builder.arguments(arguments: ArgumentSeq): CommandSpec.Builder =
  */
 fun commandArgumentsOf(arguments: ArgumentSeq): CommandElement =
         WrapperGenericArguments().apply(arguments).toCommandElement()
+
+inline operator fun <reified T> CommandContext.getValue(thisRef: Any?, property: KProperty<*>): T {
+    return if (List::class.java.isAssignableFrom(T::class.java)) {
+        getAll<Any>(property.name) as T
+    } else {
+        this.getOne<Any>(property.name).unwrap() as T
+    }
+}
 
 typealias Argument = WrapperGenericArguments.Companion.() -> CommandElement
 typealias ArgumentSeq = WrapperGenericArguments.() -> Unit
