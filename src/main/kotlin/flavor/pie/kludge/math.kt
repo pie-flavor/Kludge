@@ -38,6 +38,12 @@ import com.flowpowered.math.vector.Vectori
 import com.flowpowered.math.vector.Vectorl
 import org.spongepowered.api.entity.Transform
 import org.spongepowered.api.world.extent.Extent
+import kotlin.math.asin
+import kotlin.math.atan
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * @see Complexd.sub
@@ -998,15 +1004,15 @@ operator fun Vectorl.unaryMinus(): Vectorl = negate()
  * Converts a Euler angle vector to a direction vector.
  */
 fun Vector3d.eulerToDirection(): Vector3d {
-    val cosx = Math.cos(Math.toRadians(x))
-    return Vector3d(Math.sin(Math.toRadians(y)) * cosx, Math.cos(Math.toRadians(y)) * cosx, Math.sin(Math.toRadians(x)))
+    val cosx = cos(Math.toRadians(x))
+    return Vector3d(sin(Math.toRadians(y)) * cosx, cos(Math.toRadians(y)) * cosx, sin(Math.toRadians(x)))
 }
 
 /**
  * Converts a direction vector to a Euler angle vector.
  */
 fun Vector3d.directionToEuler(): Vector3d {
-    return Vector3d(Math.toDegrees(Math.asin(z)), Math.toDegrees(Math.atan2(y, x)), 0.0)
+    return Vector3d(Math.toDegrees(asin(z)), Math.toDegrees(atan2(y, x)), 0.0)
 }
 
 /**
@@ -1015,17 +1021,17 @@ fun Vector3d.directionToEuler(): Vector3d {
 fun Vector3d.directionToEuler(up: Vector3d): Vector3d {
     val w = Vector3d(-y, x, 0.0)
     val u = w.cross(this)
-    return Vector3d(Math.toDegrees(Math.asin(z)), Math.toDegrees(Math.atan2(y, x)), Math.toDegrees(Math.atan2(w.dot(up) / w.length(), u.dot(up) / u.length())))
+    return Vector3d(Math.toDegrees(asin(z)), Math.toDegrees(atan2(y, x)), Math.toDegrees(atan2(w.dot(up) / w.length(), u.dot(up) / u.length())))
 }
 
 /**
  * Gets the direction vector of this transform.
  */
 val Transform<*>.direction: Vector3d get() {
-    val y = -Math.sin(Math.toRadians(pitch))
-    val xz = Math.cos(Math.toRadians(pitch))
-    val x = -xz * Math.sin(Math.toRadians(yaw))
-    val z = xz * Math.cos(Math.toRadians(yaw))
+    val y = -sin(Math.toRadians(pitch))
+    val xz = cos(Math.toRadians(pitch))
+    val x = -xz * sin(Math.toRadians(yaw))
+    val z = xz * cos(Math.toRadians(yaw))
     return Vector3d(x, y, z)
 }
 
@@ -1040,10 +1046,84 @@ fun <T: Extent> Transform<T>.setDirection(direction: Vector3d): Transform<T> {
     if (x == 0.0 && z == 0.0) {
         return setRotation(Vector3d(if (direction.y > 0) -90.0 else 90.0, rotation.y, rotation.z))
     }
-    val theta = Math.atan2(-x, z)
+    val theta = atan2(-x, z)
     val yaw = Math.toDegrees((theta + pi2) % pi2)
 
-    val xz = Math.sqrt((x * x) + (z * z))
-    val pitch = Math.toDegrees(Math.atan(-direction.y / xz))
+    val xz = sqrt((x * x) + (z * z))
+    val pitch = Math.toDegrees(atan(-direction.y / xz))
     return setRotation(Vector3d(pitch, yaw, rotation.z))
 }
+
+operator fun Vector2d.component1(): Double = x
+operator fun Vector2d.component2(): Double = y
+operator fun Vector2f.component1(): Float = x
+operator fun Vector2f.component2(): Float = y
+operator fun Vector2l.component1(): Long = x
+operator fun Vector2l.component2(): Long = y
+operator fun Vector2i.component1(): Int = x
+operator fun Vector2i.component2(): Int = y
+
+operator fun Vector3d.component1(): Double = x
+operator fun Vector3d.component2(): Double = y
+operator fun Vector3d.component3(): Double = z
+operator fun Vector3f.component1(): Float = x
+operator fun Vector3f.component2(): Float = y
+operator fun Vector3f.component3(): Float = z
+operator fun Vector3l.component1(): Long = x
+operator fun Vector3l.component2(): Long = y
+operator fun Vector3l.component3(): Long = z
+operator fun Vector3i.component1(): Int = x
+operator fun Vector3i.component2(): Int = y
+operator fun Vector3i.component3(): Int = z
+
+operator fun Vector4d.component1(): Double = x
+operator fun Vector4d.component2(): Double = y
+operator fun Vector4d.component3(): Double = z
+operator fun Vector4d.component4(): Double = w
+operator fun Vector4f.component1(): Float = x
+operator fun Vector4f.component2(): Float = y
+operator fun Vector4f.component3(): Float = z
+operator fun Vector4f.component4(): Float = w
+operator fun Vector4l.component1(): Long = x
+operator fun Vector4l.component2(): Long = y
+operator fun Vector4l.component3(): Long = z
+operator fun Vector4l.component4(): Long = w
+operator fun Vector4i.component1(): Int = x
+operator fun Vector4i.component2(): Int = y
+operator fun Vector4i.component3(): Int = z
+operator fun Vector4i.component4(): Int = w
+
+operator fun Complexd.component1(): Double = x
+operator fun Complexd.component2(): Double = y
+operator fun Complexf.component1(): Float = x
+operator fun Complexf.component2(): Float = y
+
+operator fun Quaterniond.component1(): Double = x
+operator fun Quaterniond.component2(): Double = y
+operator fun Quaterniond.component3(): Double = z
+operator fun Quaterniond.component4(): Double = w
+operator fun Quaternionf.component1(): Float = x
+operator fun Quaternionf.component2(): Float = y
+operator fun Quaternionf.component3(): Float = z
+operator fun Quaternionf.component4(): Float = w
+
+operator fun Matrix2d.component1(): Vector2d = getRow(0)
+operator fun Matrix2d.component2(): Vector2d = getRow(1)
+operator fun Matrix2f.component1(): Vector2f = getRow(0)
+operator fun Matrix2f.component2(): Vector2f = getRow(1)
+
+operator fun Matrix3d.component1(): Vector3d = getRow(0)
+operator fun Matrix3d.component2(): Vector3d = getRow(1)
+operator fun Matrix3d.component3(): Vector3d = getRow(2)
+operator fun Matrix3f.component1(): Vector3f = getRow(0)
+operator fun Matrix3f.component2(): Vector3f = getRow(1)
+operator fun Matrix3f.component3(): Vector3f = getRow(2)
+
+operator fun Matrix4d.component1(): Vector4d = getRow(0)
+operator fun Matrix4d.component2(): Vector4d = getRow(1)
+operator fun Matrix4d.component3(): Vector4d = getRow(2)
+operator fun Matrix4d.component4(): Vector4d = getRow(3)
+operator fun Matrix4f.component1(): Vector4f = getRow(0)
+operator fun Matrix4f.component2(): Vector4f = getRow(1)
+operator fun Matrix4f.component3(): Vector4f = getRow(2)
+operator fun Matrix4f.component4(): Vector4f = getRow(3)
