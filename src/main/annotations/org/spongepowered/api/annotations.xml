@@ -1,0 +1,56 @@
+<root>
+    <item name='org.spongepowered.api.Sponge java.util.Optional&lt;org.spongepowered.api.GameDictionary&gt; getDictionary()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.Game getGame()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.GameRegistry getRegistry()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.Platform getPlatform()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.Server getServer()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.asset.AssetManager getAssetManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.command.CommandManager getCommandManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.config.ConfigManager getConfigManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.data.DataManager getDataManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.data.property.PropertyRegistry getPropertyRegistry()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.event.CauseStackManager getCauseStackManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.event.EventManager getEventManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.network.ChannelRegistrar getChannelRegistrar()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.plugin.PluginManager getPluginManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.scheduler.Scheduler getScheduler()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.service.ServiceManager getServiceManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.util.metric.MetricsConfigManager getMetricsConfigManager()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='org.spongepowered.api.Sponge org.spongepowered.api.world.TeleportHelper getTeleportHelper()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

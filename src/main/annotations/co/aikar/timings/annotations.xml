@@ -1,0 +1,62 @@
+<root>
+    <item name='co.aikar.timings.Timing co.aikar.timings.Timing startTiming()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String, co.aikar.timings.Timing)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings co.aikar.timings.Timing ofStart(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.Timings void generateReport(org.spongepowered.api.text.channel.MessageChannel) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.TimingsFactory co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.TimingsFactory co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.TimingsFactory co.aikar.timings.Timing of(java.lang.Object, java.lang.String, co.aikar.timings.Timing) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='co.aikar.timings.TimingsFactory void generateReport(org.spongepowered.api.text.channel.MessageChannel) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>
