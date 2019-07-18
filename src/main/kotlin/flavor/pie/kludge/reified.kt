@@ -489,28 +489,6 @@ inline fun <reified T : Projectile> ProjectileSource.launchProjectile(velocity: 
     launchProjectile(T::class.java, velocity).unwrap()
 
 /**
- * @see [EventManager.registerListener]
- */
-inline fun <reified T : Event> EventManager.registerListener(plugin: Any, listener: EventListener<in T>) =
-    registerListener(plugin, T::class.java, listener)
-
-/**
- * @see [EventManager.registerListener]
- */
-inline fun <reified T : Event> EventManager.registerListener(plugin: Any, order: Order, listener: EventListener<in T>) =
-    registerListener(plugin, T::class.java, order, listener)
-
-/**
- * @see [EventManager.registerListener]
- */
-inline fun <reified T : Event> EventManager.registerListener(
-    plugin: Any,
-    order: Order,
-    beforeModifications: Boolean,
-    listener: EventListener<in T>
-) = registerListener(plugin, T::class.java, order, beforeModifications, listener)
-
-/**
  * @see [Cause.first]
  */
 inline fun <reified T> Cause.first(): T? = first(T::class.java).unwrap()
@@ -961,21 +939,6 @@ inline fun <M, reified T : M> ImmutableClassToInstanceMap.Builder<M>.put(t: T): 
  */
 inline fun <K, reified V : Enum<V>> MultimapBuilder.MultimapBuilderWithKeys<K>.enumSetValues(): MultimapBuilder.SetMultimapBuilder<K, V> =
     enumSetValues(V::class.java)
-
-/**
- * @see [TypeToInstanceMap.getInstance]
- */
-inline fun <M, reified T : M> TypeToInstanceMap<M>.getInstance(): T? = getInstance(T::class.java)
-
-/**
- * @see [TypeToInstanceMap.putInstance]
- */
-inline fun <M, reified T : M> TypeToInstanceMap<M>.putInstance(t: T): T? = putInstance(T::class.java, t)
-
-/**
- * @see [TypeToken.where]
- */
-inline fun <T, reified X> TypeToken<T>.where(param: TypeParameter<X>): TypeToken<T> = where(param, X::class.java)
 
 /**
  * @see [TypeToken.getSupertype]
