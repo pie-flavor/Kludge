@@ -1,4 +1,3 @@
-import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -19,12 +18,9 @@ repositories {
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly("org.spongepowered:spongeapi:7.1.0")
+    compileOnly("com.uchuhimo:konf:0.13.3")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
-}
-
-tasks.named<Jar>("jar") {
-    from("src/main/annotations/")
 }
