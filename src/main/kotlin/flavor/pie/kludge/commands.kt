@@ -701,7 +701,7 @@ class WrapperGenericArguments {
     /**
      * @see GenericArguments.optional
      */
-    inline fun optional(element: Argument, value: Any) {
+    inline fun optional(value: Any, element: Argument) {
         this.elements += element().asOptional(value)
     }
     /**
