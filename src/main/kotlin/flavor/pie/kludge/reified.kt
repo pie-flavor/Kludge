@@ -560,7 +560,7 @@ inline fun <reified T : InventoryProperty<*, *>> Inventory.getInventoryProperty(
 /**
  * @see [Inventory.getInventoryProprety]
  */
-inline fun <reified T : InventoryProperty<*, *>> Inventory.getInventoryProprety(): T? =
+inline fun <reified T : InventoryProperty<*, *>> Inventory.getInventoryProperty(): T? =
     getInventoryProperty(T::class.java).unwrap()
 
 /**
