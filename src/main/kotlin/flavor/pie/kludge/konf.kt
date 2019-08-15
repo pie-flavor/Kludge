@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer
 import com.fasterxml.jackson.databind.deser.ContextualKeyDeserializer
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.flowpowered.math.imaginary.Complexd
+import com.flowpowered.math.vector.Vector3d
+import com.flowpowered.math.vector.Vector3i
 import com.uchuhimo.konf.Config
 import com.uchuhimo.konf.source.Loader
 import org.spongepowered.api.CatalogType
@@ -21,6 +24,8 @@ import org.spongepowered.api.data.DataContainer
 import org.spongepowered.api.data.DataQuery
 import org.spongepowered.api.data.DataSerializable
 import org.spongepowered.api.data.DataView
+import org.spongepowered.api.data.persistence.DataTranslators
+import org.spongepowered.api.world.schematic.Schematic
 import java.util.UUID
 
 fun Loader.asset(plugin: Any, name: String): Config = AssetManager.getAsset(plugin, name).unwrap()?.let {
@@ -73,6 +78,12 @@ private object SpongeModule : SimpleModule() {
         addDeserializer(UUID::class.java, UUIDDeserializer)
         addKeySerializer(UUID::class.java, UUIDSerializer)
         addKeyDeserializer(UUID::class.java, UUIDKeyDeserializer)
+        addSerializer(Complexd::class.java, ComplexdSerializer)
+        addDeserializer(Complexd::class.java, ComplexdDeserializer)
+        addSerializer(Vector3i::class.java, Vector3iSerializer)
+        addDeserializer(Vector3i::class.java, Vector3iDeserializer)
+        addSerializer(Vector3d::class.java, Vector3dSerializer)
+        addDeserializer(Vector3d::class.java, Vector3dDeserializer)
     }
 
 }
@@ -326,4 +337,59 @@ private object UUIDKeyDeserializer : KeyDeserializer() {
         }
     }
 
+}
+
+private object SchematicSerializer : JsonSerializer<Schematic>() {
+    override fun serialize(value: Schematic, gen: JsonGenerator, serializers: SerializerProvider) {
+        val container = DataTranslators.SCHEMATIC.translate(value)
+        DataContainerSerializer.serialize(container, gen, serializers)
+    }
+}
+
+private object SchematicDeserializer : JsonDeserializer<Schematic>() {
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Schematic {
+        val container = DataContainerDeserializer.deserialize(p, ctxt)
+        return DataTranslators.SCHEMATIC.translate(container)
+    }
+}
+
+private object ComplexdSerializer : JsonSerializer<Complexd>() {
+    override fun serialize(value: Complexd, gen: JsonGenerator, serializers: SerializerProvider) {
+        val container = DataTranslators.COMPLEXD.translate(value)
+        DataContainerSerializer.serialize(container, gen, serializers)
+    }
+}
+
+private object ComplexdDeserializer : JsonDeserializer<Complexd>() {
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Complexd {
+        val container = DataContainerDeserializer.deserialize(p, ctxt)
+        return DataTranslators.COMPLEXD.translate(container)
+    }
+}
+
+private object Vector3iSerializer : JsonSerializer<Vector3i>() {
+    override fun serialize(value: Vector3i, gen: JsonGenerator, serializers: SerializerProvider) {
+        val container = DataTranslators.VECTOR_3_I.translate(value)
+        DataContainerSerializer.serialize(container, gen, serializers)
+    }
+}
+
+private object Vector3iDeserializer : JsonDeserializer<Vector3i>() {
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Vector3i {
+        val container = DataContainerDeserializer.deserialize(p, ctxt)
+        return DataTranslators.VECTOR_3_I.translate(container)
+    }
+}
+private object Vector3dSerializer : JsonSerializer<Vector3d>() {
+    override fun serialize(value: Vector3d, gen: JsonGenerator, serializers: SerializerProvider) {
+        val container = DataTranslators.VECTOR_3_D.translate(value)
+        DataContainerSerializer.serialize(container, gen, serializers)
+    }
+}
+
+private object Vector3dDeserializer : JsonDeserializer<Vector3d>() {
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Vector3d {
+        val container = DataContainerDeserializer.deserialize(p, ctxt)
+        return DataTranslators.VECTOR_3_D.translate(container)
+    }
 }
