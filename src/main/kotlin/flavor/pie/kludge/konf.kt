@@ -19,12 +19,16 @@ import com.flowpowered.math.vector.Vector3d
 import com.flowpowered.math.vector.Vector3i
 import com.uchuhimo.konf.Config
 import com.uchuhimo.konf.source.Loader
+import com.uchuhimo.konf.source.Writer
 import org.spongepowered.api.CatalogType
 import org.spongepowered.api.data.DataContainer
 import org.spongepowered.api.data.DataQuery
 import org.spongepowered.api.data.DataSerializable
 import org.spongepowered.api.data.DataView
+import org.spongepowered.api.data.persistence.DataFormats
 import org.spongepowered.api.data.persistence.DataTranslators
+import org.spongepowered.api.text.Text
+import org.spongepowered.api.text.serializer.TextSerializers
 import org.spongepowered.api.world.schematic.Schematic
 import java.util.UUID
 
@@ -56,6 +60,18 @@ fun Loader.watchDefaultConfig(plugin: Any, sharedRoot: Boolean = true): Config =
 
 fun Loader.watchDefaultConfig(sharedRoot: Boolean = true): Config = this.watchDefaultConfig(plugin, sharedRoot)
 
+fun Writer.toDefaultConfig(plugin: Any, sharedRoot: Boolean = true) {
+    this.toFile(
+        if (sharedRoot) {
+            ConfigManager.getSharedConfig(plugin)
+        } else {
+            ConfigManager.getPluginConfig(plugin)
+        }.configPath.toFile()
+    )
+}
+
+fun Writer.toDefaultConfig(sharedRoot: Boolean = true) = this.toDefaultConfig(plugin, sharedRoot)
+
 fun Config.addSpongeTypes(): Config {
     this.mapper.registerModules(SpongeModule)
     return this
@@ -84,6 +100,8 @@ private object SpongeModule : SimpleModule() {
         addDeserializer(Vector3i::class.java, Vector3iDeserializer)
         addSerializer(Vector3d::class.java, Vector3dSerializer)
         addDeserializer(Vector3d::class.java, Vector3dDeserializer)
+        addSerializer(Text::class.java, TextSerializer)
+        addDeserializer(Text::class.java, TextDeserializer)
     }
 
 }
@@ -391,5 +409,21 @@ private object Vector3dDeserializer : JsonDeserializer<Vector3d>() {
     override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Vector3d {
         val container = DataContainerDeserializer.deserialize(p, ctxt)
         return DataTranslators.VECTOR_3_D.translate(container)
+    }
+}
+
+private object TextSerializer : JsonSerializer<Text>() {
+    override fun serialize(value: Text, gen: JsonGenerator, serializers: SerializerProvider) {
+        val json = TextSerializers.JSON.serialize(value)
+        val data = DataFormats.JSON.read(json)
+        DataContainerSerializer.serialize(data, gen, serializers)
+    }
+}
+
+private object TextDeserializer : JsonDeserializer<Text>() {
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Text {
+        val container = DataContainerDeserializer.deserialize(p, ctxt)
+        val json = DataFormats.JSON.write(container)
+        return TextSerializers.JSON.deserialize(json)
     }
 }
