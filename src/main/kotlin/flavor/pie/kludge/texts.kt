@@ -2878,7 +2878,7 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false, 
         return text
     }
     if (plain.equals(oldValue, ignoreCase)) {
-        return newValue
+        return newValue.toBuilder().append(text.children).build()
     }
     val builder = Text.builder()
     val strs = plain.split(oldValue, ignoreCase = ignoreCase)
@@ -2886,7 +2886,7 @@ fun Text.replace(oldValue: String, newValue: Text, ignoreCase: Boolean = false, 
         builder.append(!str)
         builder.append(newValue)
     }
-    builder.append(!strs.last()).append(text.children).style(text.style)
+    builder.append(!strs.last()).append(text.children).format(text.format)
     text.clickAction.ifPresent { builder.onClick(it) }
     text.hoverAction.ifPresent { builder.onHover(it) }
     text.shiftClickAction.ifPresent { builder.onShiftClick(it) }
@@ -2913,7 +2913,7 @@ fun Text.replace(oldValue: Regex, newValue: Text, lossy: Boolean = false): Text 
         return text
     }
     if (oldValue.matchEntire(plain) != null) {
-        return newValue
+        return newValue.toBuilder().append(text.children).build()
     }
     val builder = Text.builder()
     val strs = plain.split(oldValue)
@@ -2921,7 +2921,7 @@ fun Text.replace(oldValue: Regex, newValue: Text, lossy: Boolean = false): Text 
         builder.append(!str)
         builder.append(newValue)
     }
-    builder.append(!strs.last()).append(text.children).style(text.style)
+    builder.append(!strs.last()).append(text.children).format(text.format)
     text.clickAction.ifPresent { builder.onClick(it) }
     text.hoverAction.ifPresent { builder.onHover(it) }
     text.shiftClickAction.ifPresent { builder.onShiftClick(it) }
